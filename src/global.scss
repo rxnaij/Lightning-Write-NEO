@@ -1,0 +1,121 @@
+html, * {
+  box-sizing: border-box;
+}
+
+
+
+
+
+/* Typography */
+
+html, body {
+  font-family: "Roboto", "Helvetica Neue", "Helvetica", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-align: center;
+}
+
+
+
+
+
+/* Page layout */
+
+.App {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* Placeholder for upper navbar */
+  margin-top: 2rem;
+}
+
+.page-section {
+  
+  &:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+
+  &--full-width {
+    @extend .page-section;
+    align-self: stretch;
+  }
+
+}
+
+
+
+
+
+/* Links and buttons */
+
+a {
+ text-decoration: none;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 1rem;
+  color: white;
+  font-weight: 700;
+
+  min-width: 5rem;
+  min-height: 2rem;
+  padding: 1rem 0.5rem;
+  background-color: gray;
+
+  border: none;
+  border-radius: 4px;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: lightgray;
+  }
+
+  input {
+    &:checked {
+
+    }
+  }
+
+}
+
+
+.button-group, .radio-button-group {
+  display: flex;
+  justify-content: space-evenly;
+
+  .button:not(:last-child) {
+    margin-right: 2rem;
+  }
+}
+
+
+
+
+
+/* Labels */
+
+.counters {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__label {
+      display: inline-block;
+      text-align: center;
+
+      font-size: 1.2rem;
+
+      &:not(:last-child) {
+          margin-bottom: 0.25rem;
+      }
+  }
+}
