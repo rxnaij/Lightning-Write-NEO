@@ -1,8 +1,13 @@
+// Import React packages
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+// Import styles
 import './global.scss'
 import './Setup.scss'
+
+// import custom components and functions
+import { calculateTimeRemaining } from './functions/calculateTimeRemaining.js'
 
 const Setup = props => {
 
@@ -10,58 +15,63 @@ const Setup = props => {
         Sets state from value heard on the input
         Correctly casts the value to an integer
     */
-    const handleChange = (e, fn) => {
-        return fn(parseInt(e.target.value))
+    const handleChange = (val, ...fs) => {
+        for (let fn of fs) {
+            const x = parseInt(val)
+            console.log(val)
+            fn(x)
+        }
     }
+
+
+    // Change the values in these arrays to change the values of the input buttons.
+    // For instance, if you want to make the word limit values 100 and 200, make sure
+    // wordLimitValues = [100, 200].
+    const wordLimitValues = [100, 200, 500, 1000]
+    const timeLimitValues = [2, 5, 10, 15, 20].map(val => Math.floor(val * 1000 * 60))
+
 
     return(
         <div className="App Setup">
             <div className="page-section">
                 <h1>Let's start writing!</h1>
             </div>
+            <div className="page-section--full-width">
+                <label htmlFor="title-entry">
+                    What are you writing? (optional)
+                </label>
+                <input type="text" className="text-input" name="title" id="title-entry" placeholder="Email, essay intro, journal entry, ..." value={props.title} onChange={e => { props.setTitle(e.target.value) }} />
+            </div>
             <div className="page-section">
                 <h2>Word goal</h2>
                 <form className="radio-button-group">
-                    <label className="button" htmlFor="words-option_1">
-                        <input type="radio" name="words" id="words-option_1" value="100" onChange={ e => { handleChange(e, props.setWordLimit) } }/>
-                        100 words
-                    </label>
-                    <label className="button" htmlFor="words-option_2">
-                        <input type="radio" name="words" id="words-option_2" value="200" onChange={e => { handleChange(e, props.setWordLimit) }}/>
-                        200 words
-                    </label>
-                    <label className="button" htmlFor="words-option_3">
-                        <input type="radio" name="words" id="words-option_3" value="500" onChange={e => { handleChange(e, props.setWordLimit) }}/>
-                        500 words
-                    </label>
-                    <label className="button" htmlFor="words-option_4">
-                        <input type="radio" name="words" id="words-option_4" value="1000" onChange={e => { handleChange(e, props.setWordLimit) }}/>
-                        1000 words
-                    </label>
+                    {
+                        wordLimitValues.map(val => 
+                            <label className="button" htmlFor={`words-option_${val}`} key={'word-limit-' + val}>
+                                <input type="radio" name="words" id={`words-option_${val}`} value={val}
+                                    onChange={e => handleChange(e.target.value, props.setWordLimit) } />
+                                {val} words
+                            </label>
+                        )
+                    }
                 </form>
                 <h2>Time limit</h2>
-                <form action="" className="radio-button-group">
-                    <label htmlFor="5-min" className="button">
-                        <input type="radio" name="time" id="5-min" value="300000" onChange={e => { handleChange(e, props.setTimeLimit) }}/>
-                        5 min
-                    </label>
-                    <label htmlFor="10-min" className="button">
-                        <input type="radio" name="time" id="10-min" value="600000" onChange={e => { handleChange(e, props.setTimeLimit) }}/>
-                        10 min
-                    </label>
-                    <label htmlFor="15-min" className="button">
-                        <input type="radio" name="time" id="15-min" value="900000" onChange={e => { handleChange(e, props.setTimeLimit) }}/>
-                        15 min    
-                    </label>
-                    <label htmlFor="20-min" className="button">
-                        <input type="radio" name="time" id="20-min" value="1200000" onChange={e => { handleChange(e, props.setTimeLimit) }}/>
-                        20 min
-                    </label>
+                <form className="radio-button-group">
+                    {
+                        timeLimitValues.map(val =>
+                            <label className="button" htmlFor={`${val}-min`} key={'time-limit-' + val}>
+                                <input type="radio" name="time" id={`${val}-min`} value={val}
+                                    onChange={e => handleChange(e.target.value, props.setTimeLimit, t => props.setTimeRemaining(calculateTimeRemaining(t)) )}
+                                />
+                                { Math.floor((val / 1000 / 60) % 60) } min
+                            </label>    
+                        )
+                    }
                 </form>
             </div>
-            <div class="page-section">
+            <div className="page-section">
                 <Link to="/writing">
-                    <button className="button">Start writing</button>
+                    <button className={`button`} >Start writing</button>
                 </Link>
             </div>
             

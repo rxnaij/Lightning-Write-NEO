@@ -16,7 +16,9 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
 }
 
-
+.background-text {
+  color: hsla(0, 0%, 40%, 1)
+}
 
 
 
@@ -34,6 +36,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .page-section {
+
+  display: flex;
+  flex-direction: column;
   
   &:not(:last-child) {
     margin-bottom: 2rem;
@@ -43,6 +48,7 @@ h1, h2, h3, h4, h5, h6 {
     @extend .page-section;
     align-self: stretch;
   }
+
 
 }
 
@@ -57,6 +63,8 @@ a {
 }
 
 .button {
+  position: relative;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,7 +75,7 @@ a {
 
   min-width: 5rem;
   min-height: 2rem;
-  padding: 1rem 0.5rem;
+  padding: 1rem;
   background-color: gray;
 
   border: none;
@@ -85,6 +93,11 @@ a {
     }
   }
 
+  /* reference to Font Awesome icons */
+  svg {
+    margin-right: 1rem;
+  }
+
 }
 
 
@@ -95,6 +108,7 @@ a {
   .button:not(:last-child) {
     margin-right: 2rem;
   }
+
 }
 
 
@@ -114,8 +128,34 @@ a {
 
       font-size: 1.2rem;
 
+      &--completed {
+        font-weight: bold;
+        color: green;
+      }
+
       &:not(:last-child) {
           margin-bottom: 0.25rem;
       }
   }
+}
+
+
+
+/* Text inputs */
+.text-input {
+  display: inline-block;
+  padding: 0.5rem;
+  min-width: 100%;
+
+  font-size: 1rem;
+  
+  &--full-width {
+    @extend .text-input;
+    min-width: 100%;
+  }
+}
+
+
+.written-text {
+  white-space: pre-wrap;
 }
