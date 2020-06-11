@@ -33,45 +33,52 @@ const Setup = props => {
 
     return(
         <div className="App Setup">
+            <nav className="main-nav">
+                <span className="this-is-just-a-placeholder">
+                    Home
+                </span>
+            </nav>
             <div className="page-section">
                 <h1>Let's start writing!</h1>
             </div>
-            <div className="page-section--full-width">
-                <label htmlFor="title-entry">
-                    What are you writing? (optional)
-                </label>
-                <input type="text" className="text-input" name="title" id="title-entry" placeholder="Email, essay intro, journal entry, ..." value={props.title} onChange={e => { props.setTitle(e.target.value) }} />
+            <div className="page-section card">
+                <div className="input-container">
+                    <label className="input-label" htmlFor="title-entry">What are you writing? (optional)</label>
+                    <input type="text" className="text-input" name="title" id="title-entry" placeholder="Email, essay intro, journal entry, ..." value={props.title} onChange={e => { props.setTitle(e.target.value) }} />
+                </div>
+                <div className="input-container">
+                    <label className="input-label" htmlFor="word-count">Word goal</label>
+                    <form className="radio-button-group" name="word-count">
+                        {
+                            wordLimitValues.map(val => 
+                                <label className="button" htmlFor={`words-option_${val}`} key={'word-limit-' + val}>
+                                    <input type="radio" name="words" id={`words-option_${val}`} value={val}
+                                        onChange={e => handleChange(e.target.value, props.setWordLimit) } />
+                                    {val} words
+                                </label>
+                            )
+                        }
+                    </form>
+                </div>
+                <div className="input-container">
+                    <label className="input-label" htmlFor="time-limit">Time limit</label>
+                    <form className="radio-button-group" name="time-limit">
+                        {
+                            timeLimitValues.map(val =>
+                                <label className="button" htmlFor={`${val}-min`} key={'time-limit-' + val}>
+                                    <input type="radio" name="time" id={`${val}-min`} value={val}
+                                        onChange={e => handleChange(e.target.value, props.setTimeLimit, t => props.setTimeRemaining(calculateTimeRemaining(t)) )}
+                                    />
+                                    { Math.floor((val / 1000 / 60) % 60) } min
+                                </label>
+                            )
+                        }
+                    </form>
+                </div>
             </div>
             <div className="page-section">
-                <h2>Word goal</h2>
-                <form className="radio-button-group">
-                    {
-                        wordLimitValues.map(val => 
-                            <label className="button" htmlFor={`words-option_${val}`} key={'word-limit-' + val}>
-                                <input type="radio" name="words" id={`words-option_${val}`} value={val}
-                                    onChange={e => handleChange(e.target.value, props.setWordLimit) } />
-                                {val} words
-                            </label>
-                        )
-                    }
-                </form>
-                <h2>Time limit</h2>
-                <form className="radio-button-group">
-                    {
-                        timeLimitValues.map(val =>
-                            <label className="button" htmlFor={`${val}-min`} key={'time-limit-' + val}>
-                                <input type="radio" name="time" id={`${val}-min`} value={val}
-                                    onChange={e => handleChange(e.target.value, props.setTimeLimit, t => props.setTimeRemaining(calculateTimeRemaining(t)) )}
-                                />
-                                { Math.floor((val / 1000 / 60) % 60) } min
-                            </label>    
-                        )
-                    }
-                </form>
-            </div>
-            <div className="page-section">
-                <Link to="/writing">
-                    <button className={`button`} >Start writing</button>
+                <Link className="button align-end" to="/writing">
+                    Start writing
                 </Link>
             </div>
             

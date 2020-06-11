@@ -9,12 +9,13 @@ import './Writing.scss'
 // Import npm packages
 import wordcount from 'wordcount'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons'
+import { faPause, faPlay, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 // Import custom components and functions
 import WritingArea from './components/Writing/WritingArea.js'
 import WritingLabels from './components/Writing/WritingLabels.js'
 import { calculateTimeRemaining } from './functions/calculateTimeRemaining.js'
+import { timeToString } from './functions/timeToString.js'
 
 
 
@@ -72,16 +73,38 @@ const Writing = props => {
   /* Render component */
   return (
     <div className="App">
+      <nav className="main-nav">
+        <Link to="/">
+          <FontAwesomeIcon icon={faArrowLeft} /> Back to home
+        </Link>
+        <Link to="/results" className="button">
+          Finish
+        </Link>
+      </nav>
       <div className="page-section">
-        <h2>Start writing</h2>
-      </div>
-      <div className="page-section--full-width">
-        <h3>{props.title}</h3>
-        <WritingArea text={props.text} setText={props.setText} wordLimit={props.wordLimit}></WritingArea>
-      </div>
-      <div className="page-section">
-        <WritingLabels wordLimit={props.wordLimit} wordCount={wordCount} timeRemaining={timeRemaining} ></WritingLabels>
-        <button className="button" onClick={() => setTimerIsRunning(!timerIsRunning)}>
+        <WritingLabels
+          data={[
+            {
+              name: "Word count",
+              value: `${wordCount} / ${props.wordLimit}`,
+              className: `counters__label ${ 
+                wordCount >= props.wordLimit
+                ? 'counters__label--completed' 
+                : '' }
+              `,
+            },
+            {
+              name: "Time remaining",
+              value: `${timeToString(timeRemaining.minutes)}:${timeToString(timeRemaining.seconds)}`,
+              className: `counters__label ${ 
+                timeRemaining.totalTime === 0 
+                ? 'counters__label--completed' 
+                : '' }
+              `,
+            }
+          ]}
+        />
+        <button className="button align-center" onClick={() => setTimerIsRunning(!timerIsRunning)}>
           { 
             timerIsRunning 
             ? <>
@@ -95,17 +118,15 @@ const Writing = props => {
           }
         </button>
       </div>
-      <div className="page-section">
-        <div className="button-group">
-          <Link to="/" className="button">
-            Cancel
-          </Link>
-          <Link to="/results" className="button">
-            Finish
-          </Link>
-        </div>
+      <h2>{props.title ? props.title : 'New piece' }</h2>
+      <div className="page-section card">
+        <WritingArea
+          text={props.text}
+          setText={props.setText}
+          wordLimit={props.wordLimit}
+          placeholder="Enter some text..."
+        />
       </div>
-      
     </div>
   );
 }

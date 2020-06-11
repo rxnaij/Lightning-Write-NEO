@@ -1,18 +1,35 @@
+/* 
+ * Global styles for lightning write app
+ *
+ * Table of contents:
+ * 
+ * Typography
+ * Page layout
+ * Links and buttons
+ * Labels
+ * Inputs
+ */
+
+
 html, * {
   box-sizing: border-box;
 }
 
 
 
-
-
-/* Typography */
+/* ----- Typography ----- */
 
 html, body {
   font-family: "Roboto", "Helvetica Neue", "Helvetica", sans-serif;
+  background-color: #fafafa;
+  font-size: 16px;
 }
 
 h1, h2, h3, h4, h5, h6 {
+
+}
+
+.function-header {
   text-align: center;
 }
 
@@ -22,41 +39,98 @@ h1, h2, h3, h4, h5, h6 {
 
 
 
-/* Page layout */
+/* ----- Page layout ----- */
 
 .App {
-  max-width: 720px;
+  max-width: 70vw;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-
-  /* Placeholder for upper navbar */
-  margin-top: 2rem;
 }
 
+/* Basic page section */
 .page-section {
-
+  /* Spacing */
   display: flex;
   flex-direction: column;
+  margin-bottom: 2rem;
+  justify-content: space-between;
   
-  &:not(:last-child) {
-    margin-bottom: 2rem;
+  &:last-child {
+    margin-bottom: 4rem;
   }
 
-  &--full-width {
-    @extend .page-section;
+  /* Variations */
+
+  /* Extends length of page section to max width.
+   * Use case: certain inputs that would look awkward at non-full width
+   */
+  &.full-width {
     align-self: stretch;
   }
 
+  /* Applies a card background.
+   * Use case: signals sections with content that require user input
+   */
+  &.card {
+    background-color: white;
+    box-shadow: 0 4px 8px hsla(0, 0%, 40%, 1);
+    padding: 4rem;
+  }
+}
 
+/* App navigation bar 
+ * Directs user to certain pages upon request.
+ * Content may vary between page.
+*/
+.main-nav {
+  /* External (block) spacing */
+  min-width: 100%;
+  
+  /* Internal (element) spacing */
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Display tools */
+/* Set element display attribute as "block" */
+.display-block {
+  display: block;
+}
+
+.display-flex {
+  display: flex;
 }
 
 
+/* Alignment tools */
+
+/* Set flex-direction to row
+ * Use case: page sections that move horizontally, not vertically
+ */
+.flex-row {
+  flex-direction: row;
+}
+
+/* Align self at end
+ * Use case: self-alignment (in a flexbox container, usually a page section)
+ */
+.align-end {
+  align-self: flex-end;
+}
+
+/* Align self in center
+ * Use case: self-alignment (in a flexbox container, usually a page section)
+ */
+.align-center {
+  align-self: center;
+}
 
 
-
-/* Links and buttons */
+/* ----- Links and buttons ----- */
 
 a {
  text-decoration: none;
@@ -66,13 +140,16 @@ a {
   position: relative;
 
   display: flex;
+  /* Spaces elements inside of button */
   justify-content: center;
   align-items: center;
 
+  /* Button text typography */
   font-size: 1rem;
   color: white;
   font-weight: 700;
 
+  /* Element size and design */
   min-width: 5rem;
   min-height: 2rem;
   padding: 1rem;
@@ -88,8 +165,10 @@ a {
   }
 
   input {
-    &:checked {
+    appearance: none;
 
+    &:checked {
+      
     }
   }
 
@@ -100,10 +179,22 @@ a {
 
 }
 
+/* Contains a group of a label and input element.
+ * Use case: creating forms in larger section containers such as
+ * page sections.
+*/ 
+.input-container {
+  &:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+}
 
+/* Contains a group of button or button-like elements.
+ * Use case: 
+*/
 .button-group, .radio-button-group {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-start;
 
   .button:not(:last-child) {
     margin-right: 2rem;
@@ -114,38 +205,20 @@ a {
 
 
 
-
-/* Labels */
-
-.counters {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  &__label {
-      display: inline-block;
-      text-align: center;
-
-      font-size: 1.2rem;
-
-      &--completed {
-        font-weight: bold;
-        color: green;
-      }
-
-      &:not(:last-child) {
-          margin-bottom: 0.25rem;
-      }
-  }
-}
+/* ----- Labels ----- */
 
 
 
-/* Text inputs */
+
+
+/* ----- Text inputs ----- */
 .text-input {
   display: inline-block;
   padding: 0.5rem;
   min-width: 100%;
+
+  border: 1px solid hsla(0, 0%, 40%, 1);
+  border-radius: 4px;
 
   font-size: 1rem;
   
@@ -153,6 +226,11 @@ a {
     @extend .text-input;
     min-width: 100%;
   }
+}
+
+.input-label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
 }
 
 

@@ -20,30 +20,8 @@ const App = () => {
     const [ text, setText ] = useState('')
     const [ title, setTitle ] = useState('')
 
-    // Debug effects
-    useEffect(() => {
-        console.log("Time limit", timeLimit)
-    }, [timeLimit])
-    useEffect(() => {
-        console.log("Word limit", wordLimit)
-    }, [wordLimit])
-
-
-
     return(
         <Router>
-            {/* Comment out below code in build mode */}
-            {/* <ul>
-                <li>
-                    <Link to="/setup">Setup</Link>
-                </li>
-                <li>
-                    <Link to="/writing">Writing</Link>
-                </li>
-                <li>
-                    <Link to="/results">Results</Link>
-                </li>
-            </ul> */}
             <Switch>
                 <Route exact path="/">
                     <Redirect to="/setup" />

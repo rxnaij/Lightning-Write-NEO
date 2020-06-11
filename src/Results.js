@@ -43,7 +43,7 @@ const Results = props => {
             </Link>
             </div>
             <div className="page-section">
-                <h2>Results</h2>
+                <h2 className="function-header">Results</h2>
                 <p>Nice work! Here are your results:</p>
                 <div className="counters">
                     <span className="counters__label">Time elapsed: {`${timeToString(timeElapsed.minutes)}:${timeToString(timeElapsed.seconds)}`} </span>
@@ -64,7 +64,7 @@ const Results = props => {
                 </div>
             </div>
             <div className="page-section--full-width">
-                <h3>{ props.title ? props.title : '' }</h3>
+                <h3 style={{textAlign: 'left'}}>{ props.title ? props.title : '' }</h3>
                 <div className="border-box">
                     {props.text ? <p id="user-generated-text" className="written-text">{props.text}</p> : <p className="background-text">You haven't written anything.</p> }
                 </div>
