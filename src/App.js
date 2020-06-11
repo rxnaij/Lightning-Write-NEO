@@ -5,12 +5,22 @@ import {
     Route,
     //eslint-disable-next-line
     Link,
-    Redirect
+    Redirect,
+    useLocation
 } from 'react-router-dom'
 
 import Setup from './Setup'
 import Writing from './Writing'
 import Results from './Results'
+
+const ScrollToTop = () => {
+    const { pathname } = useLocation()
+    useEffect(() => {
+        window.scrollTo(0,0);
+    }, [pathname])
+
+    return null
+}
 
 const App = () => {
     /* States */
@@ -22,6 +32,7 @@ const App = () => {
 
     return(
         <Router>
+            <ScrollToTop />
             <Switch>
                 <Route exact path="/">
                     <Redirect to="/setup" />
@@ -42,7 +53,10 @@ const App = () => {
                     />
                 </Route>
                 <Route path="/results">
-                    <Results text={text} timeLimit={timeLimit} timeRemaining={timeRemaining} wordLimit={wordLimit} title={title} />
+                    <Results text={text} timeLimit={timeLimit}
+                             timeRemaining={timeRemaining} wordLimit={wordLimit}
+                             title={title}
+                    />
                 </Route>
             </Switch>
         </Router>

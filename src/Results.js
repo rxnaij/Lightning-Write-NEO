@@ -10,7 +10,7 @@ import './Results.scss'
 import wordcount from 'wordcount'
 import ClipboardJS from 'clipboard'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDownload, faCopy, faRedo, faBicycle } from '@fortawesome/free-solid-svg-icons'
+import { faDownload, faCopy, faRedo, faBicycle, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 // Import custom components and functions
 import { calculateTimeRemaining } from './functions/calculateTimeRemaining.js'
@@ -28,46 +28,77 @@ const Results = props => {
 
     return(
         <div className="App Results">
+            <nav className="main-nav">
+                <Link to="/">
+                    <span><FontAwesomeIcon icon={faArrowLeft} /> Back to home</span>
+                </Link>
+            </nav>
             <div className="page-section">
-                <Link to="/setup">
-                <div className="button-group">
-                    <button className="button">
-                        <FontAwesomeIcon icon={ faRedo } />
-                        Write again
-                    </button>
-                    <button className="button" onClick={() => {}}>
-                        <FontAwesomeIcon icon={ faBicycle } />
-                        Continue writing
-                    </button>
+                <div className="article">
+                    <div className="article__main">
+                        <h2>Nice work!</h2>
+                        <p>Here are your results:</p>
+                        <div className="linear-group">
+                            <div>
+                                <h4 className="data-label">
+                                    Time elapsed:
+                                </h4>
+                                <div className="counters__label">
+                                    {`${timeToString(timeElapsed.minutes)}:${timeToString(timeElapsed.seconds)}`}
+                                </div>
+                            </div>
+                            <div>
+                                <h4 className="data-label">
+                                    Words written:
+                                </h4>
+                                <div className="counters__label">
+                                    {wordcount(props.text)}
+                                </div>
+                            </div>
+                        </div>
+                        <p>If you're done, you can save your writing.</p>
+                    </div>
+                    <div className="article__sidebar">
+                        <div className="linear-group">
+                            <Link className="button" to="/">
+                                <FontAwesomeIcon icon={ faRedo } />
+                                Write again
+                            </Link>
+                        </div>
+                    </div>
                 </div>
-            </Link>
             </div>
+            <div className="section-divider"></div>
             <div className="page-section">
-                <h2 className="function-header">Results</h2>
-                <p>Nice work! Here are your results:</p>
-                <div className="counters">
-                    <span className="counters__label">Time elapsed: {`${timeToString(timeElapsed.minutes)}:${timeToString(timeElapsed.seconds)}`} </span>
-                    <span className="counters__label">Words written: {wordcount(props.text)}</span>
+                <div className="writing-results">
+                    <div className="writing-results__text">
+                        <h3>{ props.title ? props.title : '' }</h3>
+                        {
+                            props.text
+                            ? <p id="user-generated-text" className="written-text">{props.text}</p>
+                            : <p className="background-text">You haven't written anything.</p> 
+                        }
+                    </div>
+                    <aside className="writing-results__options">
+                        <div className="linear-group--vertical">
+                            <button className="button">
+                                <FontAwesomeIcon icon={ faDownload } /> 
+                                Download as file
+                            </button>
+                            <button
+                                className="button"
+                                id="button__copy-user-gen-text"
+                                data-clipboard-target="#user-generated-text"
+                                onClick={ () => { /* TODO: Trigger tooltip */ } }
+                            >
+                                <FontAwesomeIcon icon={ faCopy } />
+                                Copy text
+                            </button>
+                        </div>
+                    </aside>
                 </div>
-            </div>
-            <div className="page-section--full-width">
-                <p>If you're done, you can save your writing...</p>
-                <div className="button-group">
-                    <button className="button">
-                        <FontAwesomeIcon icon={ faDownload } /> 
-                        Download as file
-                    </button>
-                    <button className="button" id="button__copy-user-gen-text" data-clipboard-target="#user-generated-text" onClick={ () => { /* TODO: Trigger tooltip */ } }>
-                        <FontAwesomeIcon icon={ faCopy } />
-                        Copy text
-                    </button>
-                </div>
-            </div>
-            <div className="page-section--full-width">
-                <h3 style={{textAlign: 'left'}}>{ props.title ? props.title : '' }</h3>
-                <div className="border-box">
-                    {props.text ? <p id="user-generated-text" className="written-text">{props.text}</p> : <p className="background-text">You haven't written anything.</p> }
-                </div>
+                
+                
                 {/*Alternative: <textarea id="user-gen-text" className="textbox written-text" readOnly value={ props.text ? props.text : "You haven't written anything." } />*/}
             </div>
         </div>   

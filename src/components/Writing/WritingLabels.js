@@ -6,8 +6,8 @@ const WritingLabels = props => {
 
     const labelsToRender = props.data.map(label => 
       <div className="counters" key={label.name}>
-        <span className="title">{label.name}</span>
-        <span className={label.className}>{label.value}</span>
+        <div className="title">{label.name}</div>
+        <div className={label.className}>{label.value}</div>
       </div>  
     )
 

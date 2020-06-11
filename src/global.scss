@@ -26,15 +26,16 @@ html, body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-
-}
-
-.function-header {
-  text-align: center;
+  margin: 0;
 }
 
 .background-text {
   color: hsla(0, 0%, 40%, 1)
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.6rem;
 }
 
 
@@ -77,6 +78,13 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 4px 8px hsla(0, 0%, 40%, 1);
     padding: 4rem;
   }
+
+  /* Applies a universal margin-bottom to all child elements except for the
+   * last one. 
+   */
+  &>*:not(:last-child) {
+    margin-bottom: 1rem;
+  }
 }
 
 /* App navigation bar 
@@ -86,19 +94,33 @@ h1, h2, h3, h4, h5, h6 {
 .main-nav {
   /* External (block) spacing */
   min-width: 100%;
+  min-height: 1rem;
+  margin-bottom: 1rem;
   
   /* Internal (element) spacing */
-  padding-top: 1rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding: 0.5rem 0;
+  
+  /* Decoration */
+  border-bottom: 1px solid black;
+
+  .button {
+    height: auto;
+  }
 }
 
 /* Display tools */
-/* Set element display attribute as "block" */
+
+/* Set element display attribute */
 .display-block {
   display: block;
+}
+
+.display-inline-block {
+  display: inline-block;
 }
 
 .display-flex {
@@ -108,9 +130,14 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Alignment tools */
 
-/* Set flex-direction to row
- * Use case: page sections that move horizontally, not vertically
+/* Set flex-direction to column
+ * Use case: page sections that move vertically
  */
+
+.flex-column {
+   flex-direction: column;
+}
+
 .flex-row {
   flex-direction: row;
 }
@@ -122,54 +149,62 @@ h1, h2, h3, h4, h5, h6 {
   align-self: flex-end;
 }
 
-/* Align self in center
- * Use case: self-alignment (in a flexbox container, usually a page section)
- */
 .align-center {
   align-self: center;
 }
+
+.align-stretch {
+  align-self: stretch;
+}
+
+/* Decorative seperator */
+.section-divider {
+  border-top: 1px solid gray;
+  padding-bottom: 2rem;
+}
+
 
 
 /* ----- Links and buttons ----- */
 
 a {
- text-decoration: none;
+  text-decoration: none;
+
+  &:visited {
+    color: inherit;
+  }
 }
 
 .button {
-  position: relative;
-
   display: flex;
-  /* Spaces elements inside of button */
+
+  /* Space elements inside of button */
   justify-content: center;
   align-items: center;
 
   /* Button text typography */
   font-size: 1rem;
   color: white;
-  font-weight: 700;
+  font-weight: 500;
 
-  /* Element size and design */
-  min-width: 5rem;
+  /* Internal block size */
   min-height: 2rem;
   padding: 1rem;
-  background-color: gray;
-
+  
+  /* Block decoration */
+  background-color: hsl(207, 100%, 30%);
   border: none;
   border-radius: 4px;
 
   cursor: pointer;
 
-  &:hover {
-    background-color: lightgray;
+  /* Interactive states */
+  &:hover, &.active {
+    background-color: hsl(207, 100%, 50%);
   }
 
-  input {
-    appearance: none;
-
-    &:checked {
-      
-    }
+  &:visited {
+    color: white;
   }
 
   /* reference to Font Awesome icons */
@@ -179,35 +214,78 @@ a {
 
 }
 
+/* Class for radio <input> elements represented as buttons.
+ * Use case: Represents a radio checkbox input that is represented visually with a 
+ * .button element that is paired to it.
+ */
+.radio-button-input {
+  display: none;
+
+  &:checked + .button {
+    background-color: hsl(207, 100%, 60%);
+  }
+}
+
 /* Contains a group of a label and input element.
  * Use case: creating forms in larger section containers such as
  * page sections.
 */ 
 .input-container {
-  &:not(:last-child) {
-    margin-bottom: 1rem;
-  }
+  // No styles — exists purely as a container
+  // to group labels and input elements
 }
 
 /* Contains a group of button or button-like elements.
  * Use case: 
 */
-.button-group, .radio-button-group {
+.button-group, .radio-button-group, .linear-group {
   display: flex;
-  justify-content: flex-start;
+  flex-direction: row;
 
-  .button:not(:last-child) {
+  @media only screen and (max-width: 480px) {
+    flex-direction: column;
+  }
+
+  *:not(:last-child) {
     margin-right: 2rem;
+  }
+
+  &--vertical {
+    flex-direction: column;
+    *:not(:last-child) {
+       margin-bottom: 1rem;
+    }
   }
 
 }
 
 
 
-
 /* ----- Labels ----- */
 
+/* Display: stat counter data labels */
 
+.counters {
+  text-align: center;
+
+  .title {
+      font-size: 1.2rem;
+  }
+
+  &__label {
+      display: inline-block;
+      font-size: 1.8rem;
+
+      &--completed {
+        font-weight: bold;
+        color: green;
+      }
+
+      &:not(:last-child) {
+          margin-bottom: 0.25rem;
+      }
+  }
+}
 
 
 
@@ -217,20 +295,23 @@ a {
   padding: 0.5rem;
   min-width: 100%;
 
-  border: 1px solid hsla(0, 0%, 40%, 1);
+  border: none;
   border-radius: 4px;
+
+  background-color: hsla(0, 0%, 80%, 1);
 
   font-size: 1rem;
   
-  &--full-width {
-    @extend .text-input;
-    min-width: 100%;
+  &:hover, &:active {
+    background-color: hsla(0, 0%, 85%, 1);
   }
 }
 
-.input-label {
+.input-label, .data-label {
+  /* External spacing. */
+  display: block; // This allows margin to work properly on elements with the <label> tag.
+  padding-bottom: 0.5rem;
   font-weight: 500;
-  margin-bottom: 0.5rem;
 }
 
 

@@ -104,7 +104,10 @@ const Writing = props => {
             }
           ]}
         />
-        <button className="button align-center" onClick={() => setTimerIsRunning(!timerIsRunning)}>
+        <button
+          className="button align-center"
+          onClick={() => setTimerIsRunning(!timerIsRunning)}
+        >
           { 
             timerIsRunning 
             ? <>
