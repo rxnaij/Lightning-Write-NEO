@@ -3,12 +3,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 // Import styles
-import './global.scss'
 import './Setup.scss'
 
 // import custom components and functions
-import { calculateTimeRemaining } from './functions/calculateTimeRemaining.js'
-import RadioButtonGroup from './components/radio-button-group/RadioButtonGroup'
+import { calculateTimeRemaining } from '../functions/calculateTimeRemaining'
+import RadioButtonGroup from '../components/radio-button-group/RadioButtonGroup'
 
 
 const Setup = props => {
@@ -21,7 +20,8 @@ const Setup = props => {
                 </span>
             </nav>
             <div className="page-section">
-                <h1>Let's start writing!</h1>
+                <h1>Lightning Write</h1>
+                <p>Let's power through that writer's block!</p>
             </div>
             <div className="page-section card">
                 <div className="input-container align-stretch">
@@ -52,7 +52,14 @@ const Setup = props => {
                 />
             </div>
             <div className="page-section">
-                <Link className="button align-end" to="/writing">
+                <Link
+                    className={ `button${ 
+                        !(props.timeLimit && props.wordLimit) 
+                        ? `--disabled` 
+                        : `` } 
+                        align-end` }
+                    to={ `${ (props.timeLimit && props.wordLimit) ? `/writing` : `` }` }
+                >
                     Start writing
                 </Link>
             </div>

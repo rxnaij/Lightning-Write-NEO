@@ -1,10 +1,13 @@
 .textbox {
     /* Element */
     min-width: 100%;
-    padding: 1.5rem;
 
-    border: 4px solid transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
     border-radius: 2px;
+
+    background-color: transparent;
 
     /* Content */
     font-family: inherit;
@@ -13,6 +16,10 @@
     line-height: 1.5;
 
     transition: border 0.3s ease-out;
+
+    &:focus {
+        border: inherit;
+    }
 }
 
 .stat-display {
@@ -20,3 +27,17 @@
     justify-content: space-evenly;
 }
 
+
+
+/* DynamicLabel */
+.dynamic-label {
+    font-size: 15px;
+    
+    .value {
+        font-weight: 500;
+
+        &--success {
+            color: green;
+        }
+    }
+}

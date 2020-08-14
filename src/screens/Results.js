@@ -2,21 +2,21 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-// Import styles
-import './global.scss'
-import './Results.scss'
-
-// import npm packages
+// Import npm packages
+// Helper packages
 import wordcount from 'wordcount'
 import ClipboardJS from 'clipboard'
+// Font Awesome icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDownload, faCopy, faRedo, faBicycle, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faDownload, faCopy, faRedo, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 // Import custom components and functions
-import { calculateTimeRemaining } from './functions/calculateTimeRemaining.js'
-import { timeToString } from './functions/timeToString.js'
+import { calculateTimeRemaining } from '../functions/calculateTimeRemaining'
+import { timeToString } from '../functions/timeToString'
+import Button from '../components/button/button'
 
-
+// Import styles
+import './Results.scss'
 
 const Results = props => {
 
@@ -57,6 +57,9 @@ const Results = props => {
                             </div>
                         </div>
                         <p>If you're done, you can save your writing.</p>
+                        <Button>Hello</Button>
+                        <Button disabled><a href="google.com">This button is disabled.</a></Button>
+                        <Button secondary>This is a secondary button!</Button>
                     </div>
                     <div className="article__sidebar">
                         <div className="linear-group">

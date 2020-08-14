@@ -1,18 +1,27 @@
+// Import React and other necessary packages
 import React, { useState, useEffect } from 'react'
 import {
     BrowserRouter as Router,
     Switch,
     Route,
-    //eslint-disable-next-line
-    Link,
     Redirect,
     useLocation
 } from 'react-router-dom'
 
-import Setup from './Setup'
-import Writing from './Writing'
-import Results from './Results'
+// Import app screens
+import Setup from './screens/Setup'
+import Writing from './screens/Writing'
+import Results from './screens/Results'
 
+// Import CSS
+import './global.scss'
+
+
+
+/* Helper function
+ * Automatically scrolls window to top
+ * when navigating to a new screen.
+ */ 
 const ScrollToTop = () => {
     const { pathname } = useLocation()
     useEffect(() => {
@@ -23,10 +32,18 @@ const ScrollToTop = () => {
 }
 
 const App = () => {
-    /* States */
-    const [ timeLimit, setTimeLimit ] = useState(10000)
+    /* States
+    *  These states determine different aspects of the writing process.
+    *
+    *  timeLimit: how much time is allocated to writing
+    *  timeRemaining: how much time is currently left on the timer
+    *  wordLimit: how many words the user is aiming toward
+    *  text: the text that the user has currently written
+    *  title: (optional) the title of the piece of writing
+    */
+    const [ timeLimit, setTimeLimit ] = useState(0)
     const [ timeRemaining, setTimeRemaining ] = useState(0)
-    const [ wordLimit, setWordLimit ] = useState(100)
+    const [ wordLimit, setWordLimit ] = useState(0)
     const [ text, setText ] = useState('')
     const [ title, setTitle ] = useState('')
 
@@ -40,7 +57,7 @@ const App = () => {
                 <Route path="/setup">
                     <Setup timeLimit={timeLimit} setTimeLimit={setTimeLimit}
                            timeRemaining={timeRemaining} setTimeRemaining={setTimeRemaining}
-                           setWordLimit={setWordLimit}
+                           wordLimit={wordLimit} setWordLimit={setWordLimit}
                            setTitle={setTitle}
                     />
                 </Route>

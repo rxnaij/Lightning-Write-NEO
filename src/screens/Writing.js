@@ -2,21 +2,19 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-// Import styling
-import './global.scss'
-import './Writing.scss'
-
 // Import npm packages
 import wordcount from 'wordcount'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPause, faPlay, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 // Import custom components and functions
-import WritingArea from './components/Writing/WritingArea.js'
-import WritingLabels from './components/Writing/WritingLabels.js'
-import { calculateTimeRemaining } from './functions/calculateTimeRemaining.js'
-import { timeToString } from './functions/timeToString.js'
+import DynamicLabel from '../components/writing/DynamicLabel'
+import WritingArea from '../components/writing/WritingArea'
+import { calculateTimeRemaining } from '../functions/calculateTimeRemaining'
+import { timeToString } from '../functions/timeToString'
 
+// Import styling
+import './Writing.scss'
 
 
 /* Writing screen
@@ -77,33 +75,25 @@ const Writing = props => {
         <Link to="/">
           <FontAwesomeIcon icon={faArrowLeft} /> Back to home
         </Link>
+        <DynamicLabel 
+          name="Word count"
+          type="counter"
+          value={wordCount}
+          target={props.wordLimit}
+          display={ (x, y) => `${x} / ${y}` }
+        />
+        <DynamicLabel 
+          name="Time limit"
+          type="timer"
+          value={timeRemaining.totalTime}
+          target={0}
+          display={`${timeToString(timeRemaining.minutes)}:${timeToString(timeRemaining.seconds)}`}
+        />
         <Link to="/results" className="button">
           Finish
         </Link>
       </nav>
       <div className="page-section">
-        <WritingLabels
-          data={[
-            {
-              name: "Word count",
-              value: `${wordCount} / ${props.wordLimit}`,
-              className: `counters__label ${ 
-                wordCount >= props.wordLimit
-                ? 'counters__label--completed' 
-                : '' }
-              `,
-            },
-            {
-              name: "Time remaining",
-              value: `${timeToString(timeRemaining.minutes)}:${timeToString(timeRemaining.seconds)}`,
-              className: `counters__label ${ 
-                timeRemaining.totalTime === 0 
-                ? 'counters__label--completed' 
-                : '' }
-              `,
-            }
-          ]}
-        />
         <button
           className="button align-center"
           onClick={() => setTimerIsRunning(!timerIsRunning)}
@@ -122,7 +112,7 @@ const Writing = props => {
         </button>
       </div>
       <h2>{props.title ? props.title : 'New piece' }</h2>
-      <div className="page-section card">
+      <div className="page-section">
         <WritingArea
           text={props.text}
           setText={props.setText}

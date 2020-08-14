@@ -25,7 +25,7 @@ const RadioButtonGroup = ({name, unitName, label, values, handleChange}) => {
                     values.map(val => {
                         const inputId = `${name}-radio__${val}`
                         return(
-                            <>  
+                            <div key={inputId}>  
                                 <input type="radio"
                                     className="radio-button-input"
                                     name={name}
@@ -39,7 +39,7 @@ const RadioButtonGroup = ({name, unitName, label, values, handleChange}) => {
                                 >
                                     {val} {unitName}
                                 </label>
-                            </>
+                            </div>
                         )
                     })
                 }
