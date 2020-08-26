@@ -8,6 +8,8 @@ import './Setup.scss'
 // import custom components and functions
 import { calculateTimeRemaining } from '../functions/calculateTimeRemaining'
 import RadioButtonGroup from '../components/radio-button-group/RadioButtonGroup'
+import Button from '../components/button/button'
+// import NavButton from '../components/NavButton/NavButton'
 
 
 const Setup = props => {
@@ -47,20 +49,19 @@ const Setup = props => {
                         const x = parseInt(val) * 1000 * 60 // Parse to number, then apply an additional conversion 
                                                             // from minutes to milliseconds
                         props.setTimeLimit(x)
-                        props.setTimeRemaining(calculateTimeRemaining(x))
                     }}
                 />
             </div>
             <div className="page-section">
-                <Link
-                    className={ `button${ 
-                        !(props.timeLimit && props.wordLimit) 
-                        ? `--disabled` 
-                        : `` } 
-                        align-end` }
-                    to={ `${ (props.timeLimit && props.wordLimit) ? `/writing` : `` }` }
-                >
-                    Start writing
+                <Link to="/writing" onClick={event => {
+                    if (!(props.timeLimit && props.wordLimit))
+                        event.preventDefault()
+                }}>
+                    <Button
+                        enableConditions={[props.timeLimit, props.wordLimit]}
+                    >
+                        Start writing!!
+                    </Button>
                 </Link>
             </div>
             

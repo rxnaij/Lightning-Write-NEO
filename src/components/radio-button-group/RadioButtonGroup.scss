@@ -1,0 +1,10 @@
+/* Class for radio <input> elements represented as buttons.
+ * Use case: Neutralizes styles for radio checkbox <input>
+ *           since they're displayed as buttons with the accompanying <label>.
+ */
+ .radio-button-input {
+   &--neutralize {
+     display: none;
+   }
+    
+  }

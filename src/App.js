@@ -32,17 +32,17 @@ const ScrollToTop = () => {
 }
 
 const App = () => {
-    /* States
+    /** States
     *  These states determine different aspects of the writing process.
     *
-    *  timeLimit: how much time is allocated to writing
-    *  timeRemaining: how much time is currently left on the timer
-    *  wordLimit: how many words the user is aiming toward
-    *  text: the text that the user has currently written
-    *  title: (optional) the title of the piece of writing
+    *  timeLimit:        (number) the total amount of time, in ms, allocated to the writing phase
+    *  timeElapsed:    (object) the amount of time currently remaining on the timer
+    *  wordLimit:        (number) how many words the user is aiming toward
+    *  text:             (string) the text that the user has currently written @todo replace this when rich text is implemented
+    *  title:            (string, optional) the title of the piece of writing
     */
     const [ timeLimit, setTimeLimit ] = useState(0)
-    const [ timeRemaining, setTimeRemaining ] = useState(0)
+    const [ timeElapsed, setTimeElapsed ] = useState(0)
     const [ wordLimit, setWordLimit ] = useState(0)
     const [ text, setText ] = useState('')
     const [ title, setTitle ] = useState('')
@@ -56,7 +56,7 @@ const App = () => {
                 </Route>
                 <Route path="/setup">
                     <Setup timeLimit={timeLimit} setTimeLimit={setTimeLimit}
-                           timeRemaining={timeRemaining} setTimeRemaining={setTimeRemaining}
+                           timeElapsed={timeElapsed} setTimeElapsed={setTimeElapsed}
                            wordLimit={wordLimit} setWordLimit={setWordLimit}
                            setTitle={setTitle}
                     />
@@ -64,14 +64,14 @@ const App = () => {
                 <Route path="/writing">
                     <Writing text={text} setText={setText} 
                              timeLimit={timeLimit} setTimeLimit={setTimeLimit}
-                             timeRemaining={timeRemaining} setTimeRemaining={setTimeRemaining}
+                             timeElapsed={timeElapsed} setTimeElapsed={setTimeElapsed}
                              wordLimit={wordLimit}
                              title={title} 
                     />
                 </Route>
                 <Route path="/results">
                     <Results text={text} timeLimit={timeLimit}
-                             timeRemaining={timeRemaining} wordLimit={wordLimit}
+                             timeElapsed={timeElapsed} wordLimit={wordLimit}
                              title={title}
                     />
                 </Route>

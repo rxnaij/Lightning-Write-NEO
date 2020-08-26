@@ -1,30 +1,36 @@
+/*
+ * A specific Button use case for internal links around the app
+ * without explicitly being a part of the header navigation.
+ * 
+ */ 
+
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import Button from '../button/button'
+
 interface Props {
-    values: Array<boolean>
+    children: React.ReactNode,
+    enableConditions: [],
+    to: string,
 }
 
 const NavButton: React.FC<Props> = (props: Props) => {
 
-    const validated = props.values.every(value => value === true)
+    const isDisabled = !(props.enableConditions && !props.enableConditions.every((condition: any) => condition))
 
     return(
         <Link
-            className={ `button${ 
-                !(validated) 
-                    ? `--disabled`
-                    : `` } 
-                align-end` }
-            to={ `${ validated ? `/writing` : `` }` }
-            onClick={
-                event => {
-                    !(validated) && event.preventDefault()
-                }
-            }
-            
+            to={props.to}
+            onClick={(event) => {
+                isDisabled && event.preventDefault()
+            }}
         >
-            Start writing
+            <Button
+                disabled={isDisabled}
+            >
+                {props.children}
+            </Button>
         </Link>
     )
 }

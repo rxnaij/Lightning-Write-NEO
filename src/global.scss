@@ -11,6 +11,7 @@
  */
 
 @use './components/button/button.scss';
+@use './components/radio-button-group/RadioButtonGroup.scss';
 
 
 html, * {
@@ -62,11 +63,11 @@ p {
   /* Spacing */
   display: flex;
   flex-direction: column;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   justify-content: space-between;
   
   &:last-child {
-    margin-bottom: 4rem;
+    // margin-bottom: 4rem;
   }
 
   /* Variations */
@@ -103,7 +104,7 @@ p {
   /* External (block) spacing */
   min-width: 100%;
   min-height: 4rem;
-  margin-bottom: 1rem;
+  margin-bottom: 5rem;
   
   /* Internal (element) spacing */
   display: flex;
@@ -113,7 +114,7 @@ p {
   padding: 0.5rem 0;
   
   /* Decoration */
-  border-bottom: 1px solid black;
+  // border-bottom: 1px solid black;
 
   .button {
     height: auto;
@@ -183,18 +184,6 @@ a {
   }
 }
 
-/* Class for radio <input> elements represented as buttons.
- * Use case: Represents a radio checkbox input that is represented visually with a 
- * .button element that is paired to it.
- */
-.radio-button-input {
-  display: none;
-
-  &:checked + .button {
-    background-color: hsl(207, 100%, 60%);
-  }
-}
-
 /* Contains a group of a label and input element.
  * Use case: creating forms in larger section containers such as
  * page sections.
@@ -261,16 +250,23 @@ a {
 /* ----- Text inputs ----- */
 .text-input {
   display: inline-block;
-  padding: 0.5rem;
+  // External block spacing
+
+  // Internal block spacing
+  padding: 1rem;
   min-width: 100%;
 
+  // Block decoration
+  background-color: hsla(0, 0%, 90%, 1);
   border: none;
+  border-bottom: 1px solid black;
   border-radius: 4px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 
-  background-color: hsla(0, 0%, 80%, 1);
-
+  // Typography
   font-size: 1rem;
-  
+
   &:hover, &:active {
     background-color: hsla(0, 0%, 85%, 1);
   }

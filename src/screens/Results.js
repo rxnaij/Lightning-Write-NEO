@@ -11,8 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload, faCopy, faRedo, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 // Import custom components and functions
-import { calculateTimeRemaining } from '../functions/calculateTimeRemaining'
-import { timeToString } from '../functions/timeToString'
+import { toMinutes, toSeconds, timeToString } from '../functions/calculateTimeRemaining'
 import Button from '../components/button/button'
 
 // Import styles
@@ -22,9 +21,6 @@ const Results = props => {
 
     // eslint-disable-next-line
     const clipboard = new ClipboardJS('#button__copy-user-gen-text')
-
-    // Calculate time elapsed writing
-    const timeElapsed = calculateTimeRemaining(props.timeLimit ? props.timeLimit - props.timeRemaining.totalTime : 0)
 
     return(
         <div className="App Results">
@@ -44,7 +40,7 @@ const Results = props => {
                                     Time elapsed:
                                 </h4>
                                 <div className="counters__label">
-                                    {`${timeToString(timeElapsed.minutes)}:${timeToString(timeElapsed.seconds)}`}
+                                    {timeToString(toMinutes(props.timeElapsed)) + ':' + timeToString(toSeconds(props.timeElapsed))}
                                 </div>
                             </div>
                             <div>
@@ -57,9 +53,6 @@ const Results = props => {
                             </div>
                         </div>
                         <p>If you're done, you can save your writing.</p>
-                        <Button>Hello</Button>
-                        <Button disabled><a href="google.com">This button is disabled.</a></Button>
-                        <Button secondary>This is a secondary button!</Button>
                     </div>
                     <div className="article__sidebar">
                         <div className="linear-group">
@@ -92,7 +85,7 @@ const Results = props => {
                                 className="button"
                                 id="button__copy-user-gen-text"
                                 data-clipboard-target="#user-generated-text"
-                                onClick={ () => { /* TODO: Trigger tooltip */ } }
+                                onClick={ () => { /** @todo: Trigger tooltip */ } }
                             >
                                 <FontAwesomeIcon icon={ faCopy } />
                                 Copy text

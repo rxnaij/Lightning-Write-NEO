@@ -8,25 +8,30 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPause, faPlay, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 // Import custom components and functions
-import DynamicLabel from '../components/writing/DynamicLabel'
+import Button from '../components/button/button'
+import DynamicLabel from '../components/dynamic-label/DynamicLabel'
 import WritingArea from '../components/writing/WritingArea'
-import { calculateTimeRemaining } from '../functions/calculateTimeRemaining'
-import { timeToString } from '../functions/timeToString'
+import {
+  toMinutes,
+  toSeconds,
+  timeToString
+} from '../functions/calculateTimeRemaining'
 
 // Import styling
 import './Writing.scss'
 
 
-/* Writing screen
-*/
+/* 
+ * Writing screen
+ */
 const Writing = props => {
 
   /* State */
   const [ wordCount, setWordCount ] = useState(0)
   /* Initialize countdown timer. */
-  const { timeRemaining, setTimeRemaining } = props
   const [ timerIsRunning, setTimerIsRunning ] = useState(true)
 
+  const { timeLimit, timeElapsed, setTimeElapsed } = props
   const { text, setText } = props
 
 
@@ -40,32 +45,29 @@ const Writing = props => {
     setWordCount(wordcount(text))
   }, [text])
 
-  /* Trigger a countdown timer. */
+  /* 
+   * Trigger countdown timer.
+   * 
+   * 
+   */
   useEffect(() => {
     let isMounted = true
     let timeout
     if (isMounted && timerIsRunning) {
-      if (timeRemaining.totalTime > 0) {
-        // const onTick = () => setTimeRemaining(calculateTimeRemaining(timeRemaining.totalTime - 1000))
+      if (timeLimit > 0) {
         timeout = setTimeout(() => {
-          setTimeRemaining(calculateTimeRemaining(timeRemaining.totalTime - 1000) )
+          setTimeElapsed(timeElapsed + 1000)
         }, 1000)
-      } else { // See if there's a way to get rid of the undefined
-        setTimeRemaining({
-          totalTime: 0,
-          minutes: 0,
-          seconds: 0,
-          milliseconds: 0
-        })
+      } else if (timeElapsed >= timeLimit ) {
+        // setTimerIsRunning(false)
       }
     } 
     return () => {
       if (timeout) clearTimeout(timeout)
       isMounted = false
     }
-  }, [timerIsRunning, timeRemaining.totalTime, setTimeRemaining])
+  }, [timerIsRunning, timeElapsed, setTimeElapsed, timeLimit])
   
-
 
 
   /* Render component */
@@ -82,35 +84,29 @@ const Writing = props => {
           target={props.wordLimit}
           display={ (x, y) => `${x} / ${y}` }
         />
+        {/** @todo rework the timer component to count up instead of counting down behind the scenes,
+            while displaying a count-up on the front end. This addresses a bug where the 
+            dynamic label can't map the target value correctly--since it's 0, it'll
+            run into a division-by-zero error.
+        */}
         <DynamicLabel 
-          name="Time limit"
+          name="Time"
           type="timer"
-          value={timeRemaining.totalTime}
-          target={0}
-          display={`${timeToString(timeRemaining.minutes)}:${timeToString(timeRemaining.seconds)}`}
+          value={timeElapsed}
+          target={timeLimit}
+          display={ (time, target) => timeToString(toMinutes(time)) + ':' + timeToString(toSeconds(time)) }
         />
+        <Button
+          outline
+          onClick={() => setTimerIsRunning(!timerIsRunning)}
+        >
+          <FontAwesomeIcon icon={timerIsRunning ? faPause : faPlay} />
+          { timerIsRunning ? 'Pause' : 'Resume' }
+        </Button>
         <Link to="/results" className="button">
           Finish
         </Link>
       </nav>
-      <div className="page-section">
-        <button
-          className="button align-center"
-          onClick={() => setTimerIsRunning(!timerIsRunning)}
-        >
-          { 
-            timerIsRunning 
-            ? <>
-                <FontAwesomeIcon icon={faPause} />
-                Pause
-              </>
-            : <>
-                <FontAwesomeIcon icon={faPlay} />
-                Resume
-              </>
-          }
-        </button>
-      </div>
       <h2>{props.title ? props.title : 'New piece' }</h2>
       <div className="page-section">
         <WritingArea
@@ -121,7 +117,7 @@ const Writing = props => {
         />
       </div>
     </div>
-  );
+  )
 }
 
-export default Writing;
+export default Writing
