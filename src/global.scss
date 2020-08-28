@@ -3,6 +3,7 @@
  *
  * Table of contents:
  * 
+ * Utilities
  * Typography
  * Page layout
  * Links and buttons
@@ -18,6 +19,62 @@ html, * {
   box-sizing: border-box;
 }
 
+/* ----- Utilities -----*/
+/* Display tools */
+
+/* Set element display attribute */
+.display-block {
+  display: block;
+}
+
+.display-inline-block {
+  display: inline-block;
+}
+
+.display-flex {
+  display: flex;
+}
+
+
+/* Alignment tools */
+
+/* Set flex-direction to column
+ * Use case: page sections that move vertically
+ */
+
+.flex-column {
+   flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+/* Align self at end
+ * Use case: self-alignment (in a flexbox container, usually a page section)
+ */
+.align-end {
+  align-self: flex-end;
+}
+
+.align-center {
+  align-self: center;
+}
+
+.align-stretch {
+  align-self: stretch;
+}
+
+/* Decorative seperator */
+.section-divider {
+  border-top: 1px solid gray;
+  padding-bottom: 2rem;
+}
+
+/* Max-width */
+.mw-100 {
+  min-width: 100%;
+}
 
 
 /* ----- Typography ----- */
@@ -52,8 +109,13 @@ p {
 /* ----- Page layout ----- */
 
 .App {
-  max-width: 70vw;
+  max-width: 960px;
   margin: 0 auto;
+
+  @media only screen and (max-width: 480px) {
+    margin: 0 1rem;
+  }
+
   display: flex;
   flex-direction: column;
 }
@@ -121,57 +183,6 @@ p {
   }
 }
 
-/* Display tools */
-
-/* Set element display attribute */
-.display-block {
-  display: block;
-}
-
-.display-inline-block {
-  display: inline-block;
-}
-
-.display-flex {
-  display: flex;
-}
-
-
-/* Alignment tools */
-
-/* Set flex-direction to column
- * Use case: page sections that move vertically
- */
-
-.flex-column {
-   flex-direction: column;
-}
-
-.flex-row {
-  flex-direction: row;
-}
-
-/* Align self at end
- * Use case: self-alignment (in a flexbox container, usually a page section)
- */
-.align-end {
-  align-self: flex-end;
-}
-
-.align-center {
-  align-self: center;
-}
-
-.align-stretch {
-  align-self: stretch;
-}
-
-/* Decorative seperator */
-.section-divider {
-  border-top: 1px solid gray;
-  padding-bottom: 2rem;
-}
-
 
 
 /* ----- Links and buttons ----- */
@@ -193,29 +204,7 @@ a {
   // to group labels and input elements
 }
 
-/* Contains a group of button or button-like elements.
- * Use case: 
-*/
-.button-group, .radio-button-group, .linear-group {
-  display: flex;
-  flex-direction: row;
 
-  @media only screen and (max-width: 480px) {
-    flex-direction: column;
-  }
-
-  *:not(:last-child) {
-    margin-right: 2rem;
-  }
-
-  &--vertical {
-    flex-direction: column;
-    *:not(:last-child) {
-       margin-bottom: 1rem;
-    }
-  }
-
-}
 
 
 
@@ -254,12 +243,12 @@ a {
 
   // Internal block spacing
   padding: 1rem;
-  min-width: 100%;
+  // min-width: 100%;
 
   // Block decoration
   background-color: hsla(0, 0%, 90%, 1);
   border: none;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid gray;
   border-radius: 4px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
@@ -267,8 +256,15 @@ a {
   // Typography
   font-size: 1rem;
 
+  transition: background-color 0.2s ease-out;
+
   &:hover, &:active {
     background-color: hsla(0, 0%, 85%, 1);
+  }
+
+  &:focus {
+    border-bottom: 2px solid blue;
+    outline: none;
   }
 }
 
