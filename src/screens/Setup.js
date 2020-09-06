@@ -5,28 +5,31 @@ import { Link } from 'react-router-dom'
 // Import styles
 import './Setup.scss'
 
+// Import app state reducer functions
+import { useAppState, useAppReducer } from "../AppContext.js";
+
 // import custom components and functions
 import RadioButtonGroup from '../components/radio-button-group/RadioButtonGroup'
 import Button from '../components/button/button'
-// import NavButton from '../components/NavButton/NavButton'
+import Navbar from '../components/navbar/Navbar'
 
 
 const Setup = props => {
 
-    const { timeLimit, setTimeElapsed, setTitle } = props
+    const { writing } = useAppState()
+    const dispatch = useAppReducer()
 
-    // Resets the timeElapsed countdown to 0 when the timeLimit is set
-    useEffect(() => {
-        setTimeElapsed(0)
-    }, [timeLimit, setTimeElapsed])
+    // useEffect(() => {
+    //     dispatch({ type: 'RESET_TEXT' })
+    // }, [dispatch])
 
     return(
-        <div className="App Setup">
-            <nav className="main-nav">
+        <div id="Setup">
+            <Navbar>
                 <span className="this-is-just-a-placeholder">
-                    Home
+                    Lightning Write
                 </span>
-            </nav>
+            </Navbar>
             <div className="page-section">
                 <h1>Lightning Write</h1>
                 <p>Let's power through that writer's block!</p>
@@ -40,8 +43,8 @@ const Setup = props => {
                         name="title"
                         id="title-entry"
                         placeholder="Email, essay intro, journal entry, ..."
-                        value={props.title}
-                        onChange={e => setTitle(e.target.value)}
+                        value={writing.title}
+                        onChange={e => dispatch({ type: 'SET_TITLE', payload: { value: e.target.value } })}
                     />
                 </fieldset>
                 <RadioButtonGroup
@@ -50,7 +53,7 @@ const Setup = props => {
                     values={[100, 200, 500, 1000]}
                     handleChange={val => {
                         const x = parseInt(val)
-                        props.setWordLimit(x)
+                        dispatch({ type: 'SET_WORD_GOAL', payload: { value: x } })
                     }}
                 />
                 <RadioButtonGroup
@@ -60,18 +63,15 @@ const Setup = props => {
                     handleChange={val => {
                         const x = parseInt(val) * 1000 * 60 // Parse to number, then apply an additional conversion 
                                                             // from minutes to milliseconds
-                        props.setTimeLimit(x)
+                        dispatch({ type: 'SET_TIMER', payload: { value: x } })
                     }}
                 />
                 <Link to="/writing">
-                    <Button
-                        
-                    >
+                    <Button>
                         Start writing!!
                     </Button>
                 </Link>
             </form>
-            
         </div>
     )
 }

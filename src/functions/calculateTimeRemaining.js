@@ -1,19 +1,3 @@
-/* Given an end time,
-     returns the amount of time left until the end time.
-     end: time when timer elapses
-*/
-
-const calculateTimeRemaining = (time) => {
-    return {
-      // Total duration of time remaining (in ms)
-      totalTime: time,
-      // Time to display
-      minutes: Math.floor((time / 1000 / 60) % 60),
-      seconds: Math.floor((time / 1000) % 60),
-      milliseconds: Math.floor(time % 100)
-    }
-}
-
 /* 
  * Utility functions 
  * Converts a given time, in milliseconds, into another unit of time.
@@ -33,4 +17,4 @@ const timeToString = (number) => {
   return number >= 10 ? number.toString() : '0' + number
 }
 
-export { calculateTimeRemaining, toMinutes, toSeconds, toMilliseconds, timeToString }
+export { toMinutes, toSeconds, toMilliseconds, timeToString }

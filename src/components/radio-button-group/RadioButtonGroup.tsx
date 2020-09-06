@@ -46,10 +46,10 @@ const RadioButtonGroup: React.FC<CompProps> = ({name, label, values, handleChang
             <legend className="input-label">
                 {label}
             </legend>
-            {
+            {/* {
                 !active && 
                 <div>Please select a value.</div>
-            }
+            } */}
             {
                 values.map((val: number) => {
                     const inputId = `${name}-radio__${val}`
@@ -66,10 +66,10 @@ const RadioButtonGroup: React.FC<CompProps> = ({name, label, values, handleChang
                     )
                 })
             }
-            <div className="inline-block">
+            {/* <div className="inline-block">
                 <label htmlFor={formId + '-custom-value-input'} >or enter a custom value...</label>
                 <input id={formId + '-custom-value-input'} type="text" className="text-input" placeholder="custom value..." />
-            </div>
+            </div> */}
             
         </fieldset>
     )

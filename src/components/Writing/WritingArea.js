@@ -2,11 +2,11 @@ import React from 'react'
 
 /* Textbox to write in.
 */
-const WritingArea = props => {
+const WritingArea = ({ text, setText, wordLimit, placeholder }) => {
     return(
         <textarea className="textbox" name="writing" id=""
-                  value={props.text} onChange={e => props.setText(e.target.value)}
-                  placeholder={props.placeholder}
+                  value={text} onChange={e => setText(e.target.value)}
+                  placeholder={placeholder}
                   cols="30" rows="10"
         />
     )

@@ -31,14 +31,9 @@ var RadioButtonGroup = function (_a) {
     var formId = name + "-form";
     return (React.createElement("fieldset", { className: "radio-button-group", id: formId, name: formId },
         React.createElement("legend", { className: "input-label" }, label),
-        !active &&
-            React.createElement("div", null, "Please select a value."),
         values.map(function (val) {
             var inputId = name + "-radio__" + val;
             return (React.createElement(RadioButton_1["default"], { key: inputId, name: name, id: inputId, value: val, handleChange: handleChange, isActive: active, setActive: function () { return setActive(inputId); } }));
-        }),
-        React.createElement("div", null,
-            React.createElement("label", { htmlFor: formId + '-custom-value-input' }, "or enter a custom value..."),
-            React.createElement("input", { id: formId + '-custom-value-input', type: "text", className: "text-input", placeholder: "custom value..." }))));
+        })));
 };
 exports["default"] = RadioButtonGroup;
