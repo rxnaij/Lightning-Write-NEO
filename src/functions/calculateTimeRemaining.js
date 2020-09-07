@@ -2,9 +2,9 @@
  * Utility functions 
  * Converts a given time, in milliseconds, into another unit of time.
 */
-const toMinutes = (time) => Math.floor((time / 1000 / 60) % 60)
+const getMinutes = (time) => Math.floor((time / 1000 / 60) % 60)
 
-const toSeconds = (time) => Math.floor((time / 1000) % 60)
+const getSeconds = (time) => Math.floor((time / 1000) % 60)
 
 const toMilliseconds = (time) => Math.floor(time % 100)
 
@@ -17,4 +17,13 @@ const timeToString = (number) => {
   return number >= 10 ? number.toString() : '0' + number
 }
 
-export { toMinutes, toSeconds, toMilliseconds, timeToString }
+/**
+ * Takes a numeric value in milliseconds and converts it into a reading-friendly
+ * time format, XX:YY, where XX represents minutes, and YY represents seconds.
+ * @param {number} time - a number value, in milliseconds.
+ */
+export function displayMillisecondsAsTime (time) {
+  const minutes = timeToString(getMinutes(time))
+  const seconds = timeToString(getSeconds(time))
+  return `${minutes}:${seconds}`
+}

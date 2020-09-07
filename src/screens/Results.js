@@ -14,9 +14,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload, faCopy, faRedo, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 // Import custom components and functions
-import { toMinutes, toSeconds, timeToString } from '../functions/calculateTimeRemaining'
+import { displayMillisecondsAsTime } from '../functions/calculateTimeRemaining'
 import Navbar from '../components/navbar/Navbar'
 import Button from '../components/button/button'
+import Statistic from '../components/statistic/Statistic'
 
 // Import styles
 import './Results.scss'
@@ -41,34 +42,17 @@ const Results = () => {
                         <h2>Nice work!</h2>
                         <p>Here are your results:</p>
                         <div className="linear-group">
-                            <div>
-                                <h4 className="data-label">
-                                    Time elapsed:
-                                </h4>
-                                <div className="counters__label">
-                                    {timeToString(toMinutes(timer.elapsed)) + ':' + timeToString(toSeconds(timer.elapsed))}
-                                </div>
-                            </div>
-                            <div>
-                                <h4 className="data-label">
-                                    Words written:
-                                </h4>
-                                <div className="counters__label">
-                                    {wordcount(writing.text)}
-                                </div>
-                            </div>
+                            <Statistic title="Time elapsed:" value={displayMillisecondsAsTime(timer.elapsed)} />
+                            <Statistic title="Words written:" value={wordcount(writing.text)} />
                         </div>
-                        <p>If you're done, you can save your writing.</p>
                     </div>
                     <div className="article__sidebar">
-                        <div className="linear-group">
-                            <Link to="/">
-                                <Button>
-                                    <FontAwesomeIcon icon={ faRedo } />
-                                    Write again
-                                </Button>
-                            </Link>
-                        </div>
+                        <Link to="/">
+                            <Button>
+                                <FontAwesomeIcon icon={ faRedo } />
+                                Write again
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -85,6 +69,7 @@ const Results = () => {
                     </div>
                     <aside className="writing-results__options">
                         <div className="linear-group--vertical">
+                            <p>If you're done, you can save your writing.</p>
                             <Button>
                                 <FontAwesomeIcon icon={ faDownload } /> 
                                 Download as file

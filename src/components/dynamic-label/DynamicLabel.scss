@@ -1,0 +1,29 @@
+.dynamic-label {
+    font-size: 15px;
+
+    &__value {
+        font-weight: 500;
+        margin-bottom: 1em;
+        &--success {
+            @extend .dynamic-label__value;
+            color: green;
+        }
+        
+    }
+
+    &__progress-bar {
+        position: relative;
+        width: 100px;
+        &-guide {
+            position: absolute;
+            left: 0;
+            border-bottom: 2px solid hsla(0, 0%, 0%, 0.3);
+            width: 100px;
+        }
+        &-progress {
+            position: absolute;
+            left: 0;
+            border-bottom: 2px solid black;
+        }
+    }
+}

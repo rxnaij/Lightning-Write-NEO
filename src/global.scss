@@ -172,11 +172,10 @@ p {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 0;
+  align-items: flex-start;
+  padding: 1.5rem 0 0 0;
   
   /* Decoration */
-  // border-bottom: 1px solid black;
 
   .button {
     height: auto;
@@ -202,6 +201,14 @@ a {
 .input-container {
   // No styles — exists purely as a container
   // to group labels and input elements
+}
+
+.linear-group {
+  display: inline-flex;
+  flex-direction: row;
+  &>:not(:last-child) {
+    margin-right: 1rem;
+  }
 }
 
 /* ----- Forms ----- */

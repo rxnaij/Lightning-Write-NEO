@@ -10,6 +10,7 @@
     appearance: none;
    }
 
+   /* Label element corresponding to the radio button input */
    &__label {
      &:focus-within {
        outline: lightgreen solid medium;
@@ -18,9 +19,9 @@
     
   }
 
-  /* Contains a group of button or button-like elements.
+/* Contains a group of button or button-like elements.
  * Use case: 
-*/
+ */
 .button-group, .radio-button-group, .linear-group {
   display: inline-flex;
   flex-wrap: wrap;
@@ -45,6 +46,7 @@
 
 }
 
+/* Border shapes of the radio button group */
 .radio-button-group {
   & .button {
     border-radius: 0%;

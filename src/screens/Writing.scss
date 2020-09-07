@@ -26,18 +26,3 @@
     display: flex;
     justify-content: space-evenly;
 }
-
-
-
-/* DynamicLabel */
-.dynamic-label {
-    font-size: 15px;
-    
-    .value {
-        font-weight: 500;
-
-        &--success {
-            color: green;
-        }
-    }
-}

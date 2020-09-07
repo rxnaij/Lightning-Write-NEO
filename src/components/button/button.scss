@@ -26,7 +26,7 @@ $secondary: hsl(12, 85%, 60%);
     
     /* Block decoration */
     background-color: $primary;
-    border: none;
+    border: 1px solid $primary;
     border-radius: 4px;
   
     cursor: pointer;
@@ -103,6 +103,7 @@ $secondary: hsl(12, 85%, 60%);
     /* reference to Font Awesome icons */
     svg {
       margin-right: 1rem;
+      font-size: 1em;
     }
   
 }

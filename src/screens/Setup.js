@@ -13,15 +13,12 @@ import RadioButtonGroup from '../components/radio-button-group/RadioButtonGroup'
 import Button from '../components/button/button'
 import Navbar from '../components/navbar/Navbar'
 
-
 const Setup = props => {
 
-    const { writing } = useAppState()
+    const { timer, writing } = useAppState()
     const dispatch = useAppReducer()
 
-    // useEffect(() => {
-    //     dispatch({ type: 'RESET_TEXT' })
-    // }, [dispatch])
+    const validated = timer.limit && writing.goal
 
     return(
         <div id="Setup">
@@ -66,8 +63,10 @@ const Setup = props => {
                         dispatch({ type: 'SET_TIMER', payload: { value: x } })
                     }}
                 />
-                <Link to="/writing">
-                    <Button>
+                <Link to={validated ? '/writing' : ''} onClick={e => !validated && e.preventDefault()}>
+                    <Button
+                        disabled={!validated}
+                    >
                         Start writing!!
                     </Button>
                 </Link>

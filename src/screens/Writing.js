@@ -16,9 +16,7 @@ import DynamicLabel from '../components/dynamic-label/DynamicLabel'
 import Navbar from '../components/navbar/Navbar'
 import WritingArea from '../components/writing/WritingArea'
 import {
-  toMinutes,
-  toSeconds,
-  timeToString
+  displayMillisecondsAsTime
 } from '../functions/calculateTimeRemaining'
 
 // Import styling
@@ -73,7 +71,7 @@ const Writing = props => {
         <Link to="/">
           <FontAwesomeIcon icon={faArrowLeft} /> Back to home
         </Link>
-        <DynamicLabel 
+        <DynamicLabel
           name="Word count"
           type="counter"
           value={wordcount(writing.text)}
@@ -85,7 +83,7 @@ const Writing = props => {
           type="timer"
           value={timer.elapsed}
           target={timer.limit}
-          display={ (time, target) => timeToString(toMinutes(time)) + ':' + timeToString(toSeconds(time)) }
+          display={ (time, target) => displayMillisecondsAsTime(time) }
         />
         <Button
           outline
@@ -93,9 +91,6 @@ const Writing = props => {
         >
           <FontAwesomeIcon icon={timer.isRunning ? faPause : faPlay} />
           { timer.isRunning ? 'Pause' : 'Resume' }
-        </Button>
-        <Button onClick={() => dispatch({type: 'RESET_TEXT'})}>
-          Reset
         </Button>
         <Link to="/results" className="button">
           Finish
