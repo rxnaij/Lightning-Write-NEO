@@ -1,8 +1,7 @@
 /* Create versions of state that can be 
     transferred across all screens in the app.
-
 */
-import React, { createContext, useContext, useReducer, useEffect } from "react"
+import React, { createContext, useContext, useReducer } from "react"
 import wordcount from 'wordcount'
 
 /**
@@ -34,18 +33,13 @@ export function useAppReducer() {
  * @param {Object} action an object containing the "type" prop, specifying the name of the dispatch function to call, and "payload", which includes any necessary parameters for the function
  */
 const appStateReducer = (state, action) => {
-    const START_TIMER = 'START_TIMER'
-    const STOP_TIMER = 'STOP_TIMER'
-    const RESET_TIMER = 'RESET_TIMER'
-    const SET_TITLE = 'SET_TITLE'
-
     /** @todo Wondering about the structure of the state.
      * Is it OK to include a bunch of different data types? E.g. time AND text
      * Or should they be separated into different reducer hooks?
      */
     switch(action.type) {
         // Starts the timer
-        case START_TIMER: {
+        case 'START_TIMER': {
             return {
                 ...state,
                 timer: {
@@ -55,7 +49,7 @@ const appStateReducer = (state, action) => {
             }
         }
         // Stops the timer
-        case STOP_TIMER: {
+        case 'STOP_TIMER': {
             return {
                 ...state,
                 timer: {
@@ -84,7 +78,7 @@ const appStateReducer = (state, action) => {
             }
         }
         // Resets the timer
-        case RESET_TIMER: {
+        case 'RESET_TIMER': {
             return {
                 ...state,
                 timer: {
@@ -103,7 +97,7 @@ const appStateReducer = (state, action) => {
                 }
             }
         }
-        case SET_TITLE: {
+        case 'SET_TITLE': {
             return {
                 ...state,
                 writing: {

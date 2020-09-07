@@ -21,7 +21,6 @@ require("./RadioButtonGroup.scss");
  *
  * @todo fully build out "custom" option in radio buttons
  * @todo create radio button component
- * @todo consider turning the div .input-container into a <fieldset>
  *
  */
 var RadioButtonGroup = function (_a) {

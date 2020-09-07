@@ -204,8 +204,14 @@ a {
   // to group labels and input elements
 }
 
-
-
+/* ----- Forms ----- */
+/*
+ * Reset padding on fieldset elements
+ */
+fieldset {
+  border: none;
+  padding: 0;
+}
 
 
 /* ----- Labels ----- */

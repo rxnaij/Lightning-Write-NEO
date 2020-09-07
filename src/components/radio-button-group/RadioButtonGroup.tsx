@@ -31,7 +31,6 @@ interface CompProps {
  * 
  * @todo fully build out "custom" option in radio buttons
  * @todo create radio button component
- * @todo consider turning the div .input-container into a <fieldset>
  * 
  */
 const RadioButtonGroup: React.FC<CompProps> = ({name, label, values, handleChange}: CompProps) => {
@@ -70,7 +69,6 @@ const RadioButtonGroup: React.FC<CompProps> = ({name, label, values, handleChang
                 <label htmlFor={formId + '-custom-value-input'} >or enter a custom value...</label>
                 <input id={formId + '-custom-value-input'} type="text" className="text-input" placeholder="custom value..." />
             </div> */}
-            
         </fieldset>
     )
 }

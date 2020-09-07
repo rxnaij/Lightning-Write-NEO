@@ -1,5 +1,5 @@
 // Import React packages
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
 // Import styles
@@ -35,7 +35,7 @@ const Setup = props => {
                 <p>Let's power through that writer's block!</p>
             </div>
             <form className="page-section" onSubmit={e => e.preventDefault()}>
-                <fieldset className="input-container align-stretch">
+                <div className="input-container">
                     <label className="input-label" htmlFor="title-entry">What are you writing? (optional)</label>
                     <input
                         type="text"
@@ -46,7 +46,7 @@ const Setup = props => {
                         value={writing.title}
                         onChange={e => dispatch({ type: 'SET_TITLE', payload: { value: e.target.value } })}
                     />
-                </fieldset>
+                </div>
                 <RadioButtonGroup
                     name="word-limit"
                     label="Word goal"
