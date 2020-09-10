@@ -15,8 +15,9 @@ var mapValues_1 = require("../../functions/mapValues");
 var DynamicLabel = function (_a) {
     var name = _a.name, value = _a.value, target = _a.target, display = _a.display;
     return (React.createElement("div", { className: "dynamic-label" },
-        React.createElement("div", { className: "dynamic-label__title" }, name),
-        React.createElement("div", { className: "dynamic-label__value" + (value >= target ? "--success" : "") }, display(value, target)),
+        React.createElement("div", null,
+            React.createElement("div", { className: "dynamic-label__title" }, name),
+            React.createElement("div", { className: "dynamic-label__value" + (value >= target ? "--success" : "") }, display(value, target))),
         React.createElement("div", { className: "dynamic-label__progress-bar" },
             React.createElement("div", { className: "dynamic-label__progress-bar-guide" }),
             React.createElement("div", { className: "dynamic-label__progress-bar-progress", style: {

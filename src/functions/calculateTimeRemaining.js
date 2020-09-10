@@ -6,6 +6,7 @@ const getMinutes = (time) => Math.floor((time / 1000 / 60) % 60)
 
 const getSeconds = (time) => Math.floor((time / 1000) % 60)
 
+//eslint-disable-next-line
 const toMilliseconds = (time) => Math.floor(time % 100)
 
 /**

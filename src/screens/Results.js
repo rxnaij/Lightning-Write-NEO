@@ -36,7 +36,7 @@ const Results = () => {
                     <span><FontAwesomeIcon icon={faArrowLeft} /> Back to home</span>
                 </Link>
             </Navbar>
-            <div className="page-section">
+            <div className="page-section flex">
                 <div className="article">
                     <div className="article__main">
                         <h2>Nice work!</h2>
@@ -88,9 +88,6 @@ const Results = () => {
                         </div>
                     </aside>
                 </div>
-                
-                
-                {/*Alternative: <textarea id="user-gen-text" className="textbox written-text" readOnly value={ props.text ? props.text : "You haven't written anything." } />*/}
             </div>
         </div>   
     )

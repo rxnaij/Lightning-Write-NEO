@@ -1,0 +1,31 @@
+/* ----- Typography ----- */
+
+html, body {
+    font-family: "Roboto", "Helvetica Neue", "Helvetica", sans-serif;
+    background-color: #fafafa;
+    font-size: 16px;
+}
+  
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0px;
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: bold;
+}
+  
+h2 {
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+  
+.background-text {
+    color: hsla(0, 0%, 40%, 1)
+}
+  
+p {
+    font-size: 1rem;
+    line-height: 1.6rem;
+}

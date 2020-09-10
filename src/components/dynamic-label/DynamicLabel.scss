@@ -3,7 +3,7 @@
 
     &__value {
         font-weight: 500;
-        margin-bottom: 1em;
+        // margin-bottom: 1em;
         &--success {
             @extend .dynamic-label__value;
             color: green;
@@ -17,13 +17,13 @@
         &-guide {
             position: absolute;
             left: 0;
-            border-bottom: 2px solid hsla(0, 0%, 0%, 0.3);
+            border-bottom: 3px solid hsla(0, 0%, 0%, 0.3);
             width: 100px;
         }
         &-progress {
             position: absolute;
             left: 0;
-            border-bottom: 2px solid black;
+            border-bottom: 3px solid black;
         }
     }
 }

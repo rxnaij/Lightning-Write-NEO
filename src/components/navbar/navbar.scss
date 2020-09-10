@@ -1,0 +1,23 @@
+/* App navigation bar 
+ * Directs user to certain pages upon request.
+ * Content may vary between page.
+*/
+.navbar {
+    /* External (block) spacing */
+    min-width: 100%;
+    min-height: 5rem;
+    margin-bottom: 4rem;
+    
+    /* Internal (element) spacing */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0 0 0;
+    
+    /* Decoration */
+
+    .navbar__title {
+      color: hsla(0, 0%, 0%, 0.7);
+    }
+  }
