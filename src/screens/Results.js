@@ -38,13 +38,19 @@ const Results = () => {
             </Navbar>
             <div className="page-section flex">
                 <div className="article">
-                    <div className="article__main">
-                        <h2>Nice work!</h2>
+                    <div className="article__main internal-padding">
+                        <h1>Nice work!</h1>
                         <p>Here are your results:</p>
                         <div className="linear-group">
                             <Statistic title="Time elapsed:" value={displayMillisecondsAsTime(timer.elapsed)} />
                             <Statistic title="Words written:" value={wordcount(writing.text)} />
                         </div>
+                        <h3>{ writing.title ? writing.title : '' }</h3>
+                        {
+                            writing.text
+                            ? <p id="user-generated-text" className="written-text">{writing.text}</p>
+                            : <p className="background-text">You haven't written anything.</p> 
+                        }
                     </div>
                     <div className="article__sidebar">
                         <Link to="/">
@@ -53,40 +59,20 @@ const Results = () => {
                                 Write again
                             </Button>
                         </Link>
-                    </div>
-                </div>
-            </div>
-            <div className="section-divider"></div>
-            <div className="page-section">
-                <div className="writing-results">
-                    <div className="writing-results__text">
-                        <h3>{ writing.title ? writing.title : '' }</h3>
-                        {
-                            writing.text
-                            ? <p id="user-generated-text" className="written-text">{writing.text}</p>
-                            : <p className="background-text">You haven't written anything.</p> 
-                        }
-                    </div>
-                    <aside className="writing-results__options">
-                        <div className="linear-group--vertical">
-                            <p>If you're done, you can save your writing.</p>
-                            <Button>
-                                <FontAwesomeIcon icon={ faDownload } /> 
-                                Download as file
-                            </Button>
-                            <Button
-                                onClick={ () => { /** @todo: Trigger tooltip */ } }
+                        <Button>
+                            <FontAwesomeIcon icon={ faDownload } /> 
+                            Download as file
+                        </Button>
+                        <Button onClick={ () => { /** @todo: Trigger tooltip */ } }>
+                            <div
+                                id="button__copy-user-gen-text"
+                                data-clipboard-target="#user-generated-text"
                             >
-                                <div
-                                    id="button__copy-user-gen-text"
-                                    data-clipboard-target="#user-generated-text"
-                                >
-                                    <FontAwesomeIcon icon={ faCopy } />
-                                    Copy text
-                                </div>
-                            </Button>
-                        </div>
-                    </aside>
+                                <FontAwesomeIcon icon={ faCopy } />
+                                Copy text
+                            </div>
+                        </Button>
+                    </div>
                 </div>
             </div>
         </div>   

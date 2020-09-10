@@ -2,9 +2,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-// Import styles
-import './Setup.scss'
-
 // Import app state reducer functions
 import { useAppState, useAppReducer } from "../AppContext.js";
 
@@ -12,7 +9,6 @@ import { useAppState, useAppReducer } from "../AppContext.js";
 import RadioButtonGroup from '../components/radio-button-group/RadioButtonGroup'
 import Button from '../components/button/button'
 import Navbar from '../components/navbar/Navbar'
-
 import { quip } from "../functions/quip";
 
 const Setup = props => {

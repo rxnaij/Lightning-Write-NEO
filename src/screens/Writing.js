@@ -92,8 +92,10 @@ const Writing = props => {
           <FontAwesomeIcon icon={timer.isRunning ? faPause : faPlay} />
           { timer.isRunning ? 'Pause' : 'Resume' }
         </Button>
-        <Link to="/results" className="button">
-          Finish
+        <Link to="/results">
+          <Button>
+            Finish
+          </Button>
         </Link>
       </Navbar>
       <h2>{writing.title ? writing.title : 'New piece' }</h2>
