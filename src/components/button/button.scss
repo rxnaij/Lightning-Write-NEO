@@ -21,8 +21,8 @@ $secondary: hsl(12, 85%, 60%);
     color: white;
   
     /* Internal block size */
-    min-height: 2rem;
-    padding: 1rem 2rem;
+    // min-height: 2rem;
+    padding: 1rem 1.5rem;
     
     /* Block decoration */
     background-color: $primary;
@@ -100,10 +100,23 @@ $secondary: hsl(12, 85%, 60%);
         }
     }
   
-    /* reference to Font Awesome icons */
-    svg {
+    /* Optional button icon. Should be placed before any text content */
+    .icon {
       margin-right: 1rem;
-      font-size: 1em;
+
+      // When added, reduces button content to icon only on small screens
+      &.collapse--sm {
+        // Removes margin-right
+        @media screen and (max-width: 480px) {
+          margin-right: 0;
+        }
+        // Removes following content from view
+        & + * {
+          @media screen and (max-width: 480px) {
+            display: none;
+          }
+        }
+      }
     }
   
 }

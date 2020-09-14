@@ -8,7 +8,7 @@ import { useAppState, useAppReducer } from '../AppContext'
 // Import npm packages
 import wordcount from 'wordcount'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPause, faPlay, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faPause, faPlay, faArrowLeft, faCheck } from '@fortawesome/free-solid-svg-icons'
 
 // Import custom components and functions
 import Button from '../components/button/button'
@@ -69,7 +69,7 @@ const Writing = props => {
     <div id="Writing">
       <Navbar>
         <Link to="/">
-          <FontAwesomeIcon icon={faArrowLeft} /> Back to home
+          <FontAwesomeIcon icon={faArrowLeft} />
         </Link>
         <DynamicLabel
           name="Word count"
@@ -87,14 +87,15 @@ const Writing = props => {
         />
         <Button
           outline
+          icon={<FontAwesomeIcon icon={timer.isRunning ? faPause : faPlay} />}
+          collapse="sm"
           onClick={() => dispatch({ type: 'TOGGLE_TIMER' })}
         >
-          <FontAwesomeIcon icon={timer.isRunning ? faPause : faPlay} />
-          { timer.isRunning ? 'Pause' : 'Resume' }
+          <span className="button__text--sm">{ timer.isRunning ? 'Pause' : 'Resume' }</span>
         </Button>
-        <Link to="/results">
-          <Button>
-            Finish
+        <Link to="/results" className="">
+          <Button icon={<FontAwesomeIcon icon={faCheck} />} collapse="sm">
+            <span className="button__text--sm">Finish</span>
           </Button>
         </Link>
       </Navbar>

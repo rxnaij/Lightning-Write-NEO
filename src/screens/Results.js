@@ -54,21 +54,25 @@ const Results = () => {
                     </div>
                     <div className="article__sidebar">
                         <Link to="/">
-                            <Button>
-                                <FontAwesomeIcon icon={ faRedo } />
+                            <Button
+                                icon={<FontAwesomeIcon icon={ faRedo } />}
+                            >
                                 Write again
                             </Button>
                         </Link>
-                        <Button>
-                            <FontAwesomeIcon icon={ faDownload } /> 
+                        <Button
+                            icon={<FontAwesomeIcon icon={ faDownload } /> }
+                        >
                             Download as file
                         </Button>
-                        <Button onClick={ () => { /** @todo: Trigger tooltip */ } }>
+                        <Button
+                            onClick={ () => { /** @todo: Trigger tooltip */ } }
+                            icon={<FontAwesomeIcon icon={ faCopy } />}
+                        >
                             <div
                                 id="button__copy-user-gen-text"
                                 data-clipboard-target="#user-generated-text"
                             >
-                                <FontAwesomeIcon icon={ faCopy } />
                                 Copy text
                             </div>
                         </Button>

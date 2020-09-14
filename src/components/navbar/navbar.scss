@@ -4,6 +4,8 @@
 */
 .navbar {
     /* External (block) spacing */
+    position: sticky;
+    top: 0;
     min-width: 100%;
     min-height: 5rem;
     margin-bottom: 4rem;
@@ -16,6 +18,8 @@
     padding: 1.5rem 0 0 0;
     
     /* Decoration */
+
+    background-color: hsl(0, 0%, 97%);
 
     .navbar__title {
       color: hsla(0, 0%, 0%, 0.7);

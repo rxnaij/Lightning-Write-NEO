@@ -13,7 +13,7 @@
 
     &__progress-bar {
         position: relative;
-        width: 100px;
+        max-width: 100px;
         &-guide {
             position: absolute;
             left: 0;
@@ -24,6 +24,10 @@
             position: absolute;
             left: 0;
             border-bottom: 3px solid black;
+            &--success {
+                @extend .dynamic-label__progress-bar-progress;
+                border-bottom-color: green;
+            }
         }
     }
 }

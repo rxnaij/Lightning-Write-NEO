@@ -27,12 +27,6 @@
   flex-wrap: wrap;
   flex-direction: row;
 
-  @media only screen and (max-width: 480px) {
-    &>*:not(:last-child) {
-      margin-bottom: 1rem;
-   }
-  }
-
   *:not(:last-child) {
     margin-right: 0rem;
   }

@@ -86,7 +86,6 @@ function constrain (n, low, high) {
 export function mapValues (n, start1, stop1, start2, stop2, withinBounds) {
     
     const newval = (n - start1) / (stop1 - start1) * (stop2 - start2) + start2;
-    console.log("newval: " + newval)
     if (!withinBounds) {
       return newval;
     }

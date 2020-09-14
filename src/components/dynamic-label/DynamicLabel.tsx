@@ -27,13 +27,13 @@ const DynamicLabel: React.FC<CompProps> = ({ name, value, target, display }: Com
       <div className="dynamic-label">
         <div>
           <div className="dynamic-label__title">{name}</div>
-          <div className={ `dynamic-label__value${value >= target ? `--success` : ``}` }>
+          <div className={ `dynamic-label__value${value >= target ? `--success` : ``}`}>
             { display(value, target) }
           </div>
         </div>
         <div className="dynamic-label__progress-bar">
           <div className="dynamic-label__progress-bar-guide" ></div>
-          <div className="dynamic-label__progress-bar-progress" style={{
+          <div className={`dynamic-label__progress-bar-progress${value >= target ? `--success` : ``}`} style={{
             'width': `${mapValues(value, 0, target, 0, 100, true)}px`,
           }}></div>
         </div>

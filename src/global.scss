@@ -163,11 +163,12 @@ a {
  }
 
 /*
- * Reset padding on fieldset elements
+ * Reset styling on fieldset elements
  */
 fieldset {
   border: none;
   padding: 0;
+  margin: 0;
 }
 
 
@@ -243,11 +244,16 @@ fieldset {
   white-space: pre-wrap;
 }
 
-
+// Site footer
 .footer {
-  padding: 3rem 0;
+  padding: 2rem 0;
   text-align: center;
+  color: hsla(0, 0%, 0%, 0.7);
+  
   p {
     font-size: 0.8rem;
+  }
+  a {
+    text-decoration: underline;
   }
 }

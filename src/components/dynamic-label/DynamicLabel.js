@@ -20,7 +20,7 @@ var DynamicLabel = function (_a) {
             React.createElement("div", { className: "dynamic-label__value" + (value >= target ? "--success" : "") }, display(value, target))),
         React.createElement("div", { className: "dynamic-label__progress-bar" },
             React.createElement("div", { className: "dynamic-label__progress-bar-guide" }),
-            React.createElement("div", { className: "dynamic-label__progress-bar-progress", style: {
+            React.createElement("div", { className: "dynamic-label__progress-bar-progress" + (value >= target ? "--success" : ""), style: {
                     'width': mapValues_1.mapValues(value, 0, target, 0, 100, true) + "px"
                 } }))));
 };

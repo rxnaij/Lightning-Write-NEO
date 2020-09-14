@@ -11,7 +11,7 @@ const Layout = ({ children }: Props) => {
         <div className="layout">
             {children}
             <footer className="footer">
-                <p><a href="https://github.com/rxnaij/lightning-write-NEO">github</a> · made with &lt;3 by @rxnaij © 2020</p>
+                <p><a href="https://github.com/rxnaij/lightning-write-NEO">github</a> · made with &lt;3 by <a href="https://github.com/rxnaij">@rxnaij</a>  © 2020</p>
             </footer>
         </div>
     )
