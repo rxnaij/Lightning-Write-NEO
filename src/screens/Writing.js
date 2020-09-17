@@ -61,8 +61,10 @@ const Writing = props => {
       isMounted = false
     }
   }, [dispatch, timer.limit, timer.elapsed, timer.isRunning])
-  
 
+  if (writing.text) {
+    window.onbeforeunload = () => "If you leave now, you'll lose your writing in progress. Are you sure you want to leave this page?"
+  }
 
   /* Render component */
   return (
@@ -86,7 +88,7 @@ const Writing = props => {
           display={ (time, target) => displayMillisecondsAsTime(time) }
         />
         <Button
-          outline
+          variant="outline"
           icon={<FontAwesomeIcon icon={timer.isRunning ? faPause : faPlay} />}
           collapse="sm"
           onClick={() => dispatch({ type: 'TOGGLE_TIMER' })}

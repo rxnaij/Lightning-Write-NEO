@@ -26,9 +26,7 @@ const NavButton: React.FC<Props> = (props: Props) => {
                 isDisabled && event.preventDefault()
             }}
         >
-            <Button
-                disabled={isDisabled}
-            >
+            <Button state={isDisabled ? 'disabled' : null}>
                 {props.children}
             </Button>
         </Link>

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import classNames from 'classnames'
 
 import './button.scss'
 
@@ -6,12 +7,10 @@ export interface AppProps {
     children: React.ReactNode,
     
     // Possible button states
-    disabled?: boolean,
-    active?: boolean,
+    state?: 'disabled'|'active'|null,
     
     // Button variants
-    outline?: boolean,
-    secondary?: boolean,
+    variant?: 'outline'|'secondary'|null,
     
     // Event listener callback function
     onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void,
@@ -25,23 +24,20 @@ export interface AppProps {
     collapse?: 'sm'
 }
 
-const Button: React.FC<AppProps> = ({disabled, enableConditions, active, secondary, outline, onClick, icon, collapse, children}: AppProps) => {
-
-    // Button disabled state. Evaluates to true if:
-    // the `disabled` prop is supplied, OR
-    // any of the elements in the `enableConditions` prop contains a falsy value
-    const disabledState = disabled || (enableConditions && !enableConditions.every((condition: any) => condition))
+const Button: React.FC<AppProps> = ({children, state, variant, onClick, enableConditions, icon, collapse}: AppProps) => {
 
     return(
         <button
-            className={`
-                button
-                ${disabledState ? 'button--disabled' : ''}
-                ${active ? 'button--activated' : ''}
-                ${secondary ? 'button--secondary' : ''}
-                ${outline ? 'button--outline' : ''}
-                `
-            }
+            className={classNames({
+                'button': true,
+                // Button disabled state. Evaluates to true if:
+                // the `disabled` prop is supplied, OR
+                // any of the elements in the `enableConditions` prop contains a falsy value
+                'button--disabled': state === 'disabled' || (enableConditions && !enableConditions.every((condition: any) => condition)),
+                'button--activated': state === 'active',
+                'button--secondary': variant === 'secondary',
+                'button--outline': variant === 'outline',
+            })}
             onClick={(event): void => {
                 if (onClick) {
                     event.preventDefault()
@@ -52,13 +48,12 @@ const Button: React.FC<AppProps> = ({disabled, enableConditions, active, seconda
             {
                 icon && 
                 <span
-                    className={`
-                        icon
+                    className={`icon
                         ${collapse ? 'collapse--' + collapse : ''}
                     `}
                     role="img"
                 >
-                        {icon}
+                    {icon}
                 </span>
             }
             {children}

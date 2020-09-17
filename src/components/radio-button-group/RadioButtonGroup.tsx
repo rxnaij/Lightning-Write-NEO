@@ -30,13 +30,12 @@ interface CompProps {
 /**
  * 
  * @todo fully build out "custom" option in radio buttons
- * @todo create radio button component
  * 
  */
 const RadioButtonGroup: React.FC<CompProps> = ({name, label, values, handleChange}: CompProps) => {
 
     // @state active: the ID attribute of the currently active radio button
-    const [active, setActive] = React.useState('')
+    const [valueSelected, setvalueSelected] = React.useState('')
 
     const formId = `${name}-form`
 
@@ -59,8 +58,8 @@ const RadioButtonGroup: React.FC<CompProps> = ({name, label, values, handleChang
                             id={inputId}
                             value={val}
                             handleChange={handleChange}
-                            isActive={active}
-                            setActive={(): void => setActive(inputId)}
+                            isActive={valueSelected === inputId}
+                            setActive={(): void => setvalueSelected(inputId)}
                         />
                     )
                 })

@@ -20,19 +20,18 @@ require("./RadioButtonGroup.scss");
 /**
  *
  * @todo fully build out "custom" option in radio buttons
- * @todo create radio button component
  *
  */
 var RadioButtonGroup = function (_a) {
     var name = _a.name, label = _a.label, values = _a.values, handleChange = _a.handleChange;
     // @state active: the ID attribute of the currently active radio button
-    var _b = React.useState(''), active = _b[0], setActive = _b[1];
+    var _b = React.useState(''), valueSelected = _b[0], setvalueSelected = _b[1];
     var formId = name + "-form";
     return (React.createElement("fieldset", { className: "radio-button-group", id: formId, name: formId },
         React.createElement("legend", { className: "input-label" }, label),
         values.map(function (val) {
             var inputId = name + "-radio__" + val;
-            return (React.createElement(RadioButton_1["default"], { key: inputId, name: name, id: inputId, value: val, handleChange: handleChange, isActive: active, setActive: function () { return setActive(inputId); } }));
+            return (React.createElement(RadioButton_1["default"], { key: inputId, name: name, id: inputId, value: val, handleChange: handleChange, isActive: valueSelected === inputId, setActive: function () { return setvalueSelected(inputId); } }));
         })));
 };
 exports["default"] = RadioButtonGroup;

@@ -48,21 +48,17 @@ const Results = () => {
                         <h3>{ writing.title ? writing.title : '' }</h3>
                         {
                             writing.text
-                            ? <p id="user-generated-text" className="written-text">{writing.text}</p>
+                            ? <textarea id="user-generated-text" className="textbox" placeholder="You haven't written anything." readOnly value={writing.text} rows={10} />
                             : <p className="background-text">You haven't written anything.</p> 
                         }
                     </div>
                     <div className="article__sidebar">
                         <Link to="/">
-                            <Button
-                                icon={<FontAwesomeIcon icon={ faRedo } />}
-                            >
+                            <Button icon={<FontAwesomeIcon icon={ faRedo } />}>
                                 Write again
                             </Button>
                         </Link>
-                        <Button
-                            icon={<FontAwesomeIcon icon={ faDownload } /> }
-                        >
+                        <Button icon={<FontAwesomeIcon icon={ faDownload } /> }>
                             Download as file
                         </Button>
                         <Button

@@ -5,7 +5,7 @@ interface RadioButtonProps {
     id: string,
     value: number,
     handleChange: (value: string) => void, // controls value in parent element.
-    isActive: string,
+    isActive: boolean,
     setActive: (id: string) => void
 }
 
@@ -13,7 +13,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({ name, id, value, handleChange
     return(
         <>
             <label
-                className={`radio-button-input__label button button--outline ${isActive === id ? 'button--outline--activated' : ''}`}
+                className={`radio-button-input__label button button--outline ${isActive ? 'button--outline--activated' : ''}`}
                 htmlFor={id}
                 onClick={() => setActive(id) /* When current radio button is selected, sets it as the active one */}
             >

@@ -64,7 +64,7 @@ const Setup = props => {
                         }}
                     />
                     <Link to={validated ? '/writing' : ''} onClick={e => !validated && e.preventDefault()}>
-                        <Button disabled={!validated}>
+                        <Button state={!validated && 'disabled'}>
                             Start writing!!
                         </Button>
                     </Link>
