@@ -11,6 +11,7 @@ import Button from '../components/button/button'
 import Navbar from '../components/navbar/Navbar'
 import { quip } from "../functions/quip";
 
+
 const Setup = props => {
 
     const { timer, writing } = useAppState()
@@ -70,6 +71,9 @@ const Setup = props => {
                     </Link>
                 </form>
             </section>
+            <footer className="footer">
+                <p><a href="https://github.com/rxnaij/lightning-write-NEO">github</a> · made with &lt;3 by <a href="https://github.com/rxnaij">@rxnaij</a>  © 2020</p>
+            </footer>
         </div>  
     )
 }

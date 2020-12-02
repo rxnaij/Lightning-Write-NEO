@@ -3,7 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 // Import app state
-import { useAppState } from "../AppContext";
+import { useAppState, useAppReducer } from "../AppContext";
 
 // Import npm packages
 // Helper packages
@@ -18,6 +18,7 @@ import { displayMillisecondsAsTime } from '../functions/calculateTimeRemaining'
 import Navbar from '../components/navbar/Navbar'
 import Button from '../components/button/button'
 import Statistic from '../components/statistic/Statistic'
+import Editor from '../components/editor/Editor'
 
 // Import styles
 import './Results.scss'
@@ -25,6 +26,8 @@ import './Results.scss'
 const Results = () => {
 
     const { timer, writing } = useAppState()
+    const { editorState } = writing
+    const dispatch = useAppReducer()
 
     // eslint-disable-next-line
     const clipboard = new ClipboardJS('#button__copy-user-gen-text')
@@ -46,9 +49,14 @@ const Results = () => {
                             <Statistic title="Words written:" value={wordcount(writing.text)} />
                         </div>
                         <h3>{ writing.title ? writing.title : '' }</h3>
+                        
                         {
                             writing.text
-                            ? <textarea id="user-generated-text" className="textbox" placeholder="You haven't written anything." readOnly value={writing.text} rows={10} />
+                            ? <Editor
+                                value={writing.editorState}
+                                onChange={ e => dispatch({ type: 'SET_EDITOR_STATE', payload: { value: e } }) }
+                                readOnly
+                            />
                             : <p className="background-text">You haven't written anything.</p> 
                         }
                     </div>

@@ -9,15 +9,13 @@ import { useAppState, useAppReducer } from '../AppContext'
 import wordcount from 'wordcount'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPause, faPlay, faArrowLeft, faCheck } from '@fortawesome/free-solid-svg-icons'
+import Editor from '../components/editor/Editor.tsx'
 
 // Import custom components and functions
 import Button from '../components/button/button'
 import DynamicLabel from '../components/dynamic-label/DynamicLabel'
 import Navbar from '../components/navbar/Navbar'
-import WritingArea from '../components/writing/WritingArea'
-import {
-  displayMillisecondsAsTime
-} from '../functions/calculateTimeRemaining'
+import { displayMillisecondsAsTime } from '../functions/calculateTimeRemaining'
 
 // Import styling
 import './Writing.scss'
@@ -38,11 +36,6 @@ const Writing = props => {
     dispatch({ type: 'RESET_TEXT' })
   }, [dispatch, timer.limit])
 
-  /* Keeps textarea component value controlled to state. */
-  useEffect(() => {
-    dispatch({ type: 'SET_TEXT', payload: { value: writing.text } })
-  }, [dispatch, writing.text])
-
   /**
    * Trigger countdown timer.
    */
@@ -62,13 +55,16 @@ const Writing = props => {
     }
   }, [dispatch, timer.limit, timer.elapsed, timer.isRunning])
 
-  if (writing.text) {
-    window.onbeforeunload = () => "If you leave now, you'll lose your writing in progress. Are you sure you want to leave this page?"
-  }
+  // if (writing.text) {
+  //   window.onbeforeunload = () => "If you leave now, you'll lose your writing in progress. Are you sure you want to leave this page?"
+  // }
 
   /* Render component */
   return (
-    <div id="Writing">
+    <div id="Writing" style={{
+      display: 'flex',
+      'flexDirection': 'column'
+    }}>
       <Navbar>
         <Link to="/">
           <FontAwesomeIcon icon={faArrowLeft} />
@@ -102,14 +98,11 @@ const Writing = props => {
         </Link>
       </Navbar>
       <h2>{writing.title ? writing.title : 'New piece' }</h2>
-      <div className="page-section">
-        <WritingArea
-          text={writing.text}
-          setText={e => dispatch({ type: 'SET_TEXT', payload: { value: e } })}
-          wordLimit={writing.goal}
-          placeholder="Enter some text..."
-        />
-      </div>
+      <Editor
+        value={writing.editorState}
+        onChange={ e => dispatch({ type: 'SET_EDITOR_STATE', payload: { value: e } }) }
+        setText={ e => dispatch({ type: 'SET_TEXT', payload: { value: e } }) }
+      />
     </div>
   )
 }

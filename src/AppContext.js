@@ -3,6 +3,7 @@
 */
 import React, { createContext, useContext, useReducer } from "react"
 import wordcount from 'wordcount'
+import { EditorState } from 'draft-js'
 
 /**
  * Context.
@@ -13,9 +14,16 @@ import wordcount from 'wordcount'
 export const AppContext = createContext()
 AppContext.displayName = 'AppContext'
 
-/** 
- * Provides read-only app state values.
- */
+/** States
+    *  These states determine different aspects of the writing process.
+    *
+    *  @prop timeLimit:        (number) the total amount of time, in ms, allocated to the writing phase
+    *  @prop timeElapsed:    (object) the amount of time currently remaining on the timer
+    *  @prop wordLimit:        (number) how many words the user is aiming toward
+    *  @prop text:             (string) the text that the user has currently written @todo replace this when rich text is implemented
+    *  @prop editorState        (EditorState) the current EditorState object representing the rich text data
+    * @prop title:            (string, optional) the title of the piece of writing
+*/
 export function useAppState() {
     return useContext(AppContext)[0];
 }
@@ -29,14 +37,10 @@ export function useAppReducer() {
 
 /**
  * Reducer dispatch function – called to initiate a particular change in state.
- * @param {*} state 
+ * @param {Object} state the app's current state
  * @param {Object} action an object containing the "type" prop, specifying the name of the dispatch function to call, and "payload", which includes any necessary parameters for the function
  */
 const appStateReducer = (state, action) => {
-    /** @todo Wondering about the structure of the state.
-     * Is it OK to include a bunch of different data types? E.g. time AND text
-     * Or should they be separated into different reducer hooks?
-     */
     switch(action.type) {
         // Starts the timer
         case 'START_TIMER': {
@@ -107,13 +111,20 @@ const appStateReducer = (state, action) => {
             }
         }
         case 'SET_TEXT': {
-            const count = state.text ? wordcount(state.text) : 0
             return {
                 ...state,
                 writing: {
                     ...state.writing,
                     text: action.payload.value,
-                    wordCount: count
+                }
+            }
+        }
+        case 'SET_EDITOR_STATE': {
+            return {
+                ...state,
+                writing: {
+                    ...state.writing,
+                    editorState: action.payload.value
                 }
             }
         }
@@ -143,21 +154,12 @@ const appStateReducer = (state, action) => {
 }
 
 /**
- * Parent This is the parent function that provides the state to the app.
+ * This is the parent function that provides the state to the app.
  * @param {*} param0 
  */
 export function AppStateProvider({children}) {
 
     // The initial state of the app
-        /** States
-    *  These states determine different aspects of the writing process.
-    *
-    *  timeLimit:        (number) the total amount of time, in ms, allocated to the writing phase
-    *  timeElapsed:    (object) the amount of time currently remaining on the timer
-    *  wordLimit:        (number) how many words the user is aiming toward
-    *  text:             (string) the text that the user has currently written @todo replace this when rich text is implemented
-    *  title:            (string, optional) the title of the piece of writing
-    */
     const initialState = {
         timer: {
             isRunning: false,
@@ -166,15 +168,17 @@ export function AppStateProvider({children}) {
         },
         writing: {
             title: '',
-            text: '',
+            text: "",
             goal: 0,
-            wordCount: 0
+            editorState: EditorState.createEmpty()
         }
     }
 
     // The reducer hook which manages the state object and the dispatch function 
     // whose function is based on the state
     const value = useReducer(appStateReducer, initialState)
+
+
 
     // Return a provider "container" for the context.
     // AppContext.Provider signals that the children components can access the

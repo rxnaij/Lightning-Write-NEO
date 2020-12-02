@@ -246,7 +246,8 @@ fieldset {
 
 // Site footer
 .footer {
-  padding: 2rem 0;
+  position: relative;
+  bottom: 0;
   text-align: center;
   color: hsla(0, 0%, 0%, 0.7);
   
