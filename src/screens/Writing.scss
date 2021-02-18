@@ -1,26 +1,12 @@
-.textbox {
-    /* Element */
-    position: relative;
-    top: auto;
-    bottom: 0;
-    min-width: 100%;
+#Writing {
+    display: flex;
+    flex-direction: column;
+}
 
-    border: none;
-    padding: 0;
-    margin: 0;
-    border-radius: 2px;
-
-    background-color: transparent;
-
-    /* Content */
-    font-family: inherit;
-    color: hsla(0, 0%, 0%, 0.80);
-    font-size: 1.2rem;
-    line-height: 1.5;
-
-    transition: border 0.3s ease-out;
-
-    &:focus {
-        border: inherit;
-    }
+.writing__settings {
+    max-width: 40rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 2rem;
 }

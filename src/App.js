@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom'
 
 import { AppStateProvider } from "./AppContext";
-import Layout from './components/layout/Layout'
+import Layout from './components/layout/Layout.tsx'
 
 // Import app screens
 import Setup from './screens/Setup'
@@ -18,7 +18,6 @@ import Results from './screens/Results'
 
 // Import CSS
 import './global.scss'
-
 
 /* Helper function
  * Automatically scrolls window to top
@@ -32,32 +31,28 @@ const ScrollToTop = () => {
     return null
 }
 
-
-
-const App = () => {
-    return(
-        <AppStateProvider>
-            <Layout>
-                <Router>
-                    <ScrollToTop />
-                    <Switch>
-                        <Route exact path="/">
-                            <Redirect to="/setup" />
-                        </Route>
-                        <Route path="/setup">
-                            <Setup />
-                        </Route>
-                        <Route path="/writing">
-                            <Writing />
-                        </Route>
-                        <Route path="/results">
-                            <Results />
-                        </Route>
-                    </Switch>
-                </Router>
-            </Layout>
-        </AppStateProvider>
-    )
-}
+const App = () => (
+    <AppStateProvider>
+        <Layout>
+            <Router>
+                <ScrollToTop />
+                <Switch>
+                    <Route exact path="/">
+                        <Redirect to="/setup" />
+                    </Route>
+                    <Route path="/setup">
+                        <Setup />
+                    </Route>
+                    <Route path="/writing">
+                        <Writing />
+                    </Route>
+                    <Route path="/results">
+                        <Results />
+                    </Route>
+                </Switch>
+            </Router>
+        </Layout>
+    </AppStateProvider>
+)
 
 export default App

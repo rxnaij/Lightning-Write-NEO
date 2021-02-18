@@ -12,28 +12,28 @@ import { faPause, faPlay, faArrowLeft, faCheck } from '@fortawesome/free-solid-s
 import Editor from '../components/editor/Editor.tsx'
 
 // Import custom components and functions
-import Button from '../components/button/button'
-import DynamicLabel from '../components/dynamic-label/DynamicLabel'
-import Navbar from '../components/navbar/Navbar'
+import Button from '../components/button/button.tsx'
+import DynamicLabel from '../components/dynamic-label/DynamicLabel.tsx'
+import Navbar from '../components/navbar/Navbar.tsx'
 import { displayMillisecondsAsTime } from '../functions/calculateTimeRemaining'
 
 // Import styling
 import './Writing.scss'
 
-
-/* 
- * Writing screen
- */
-const Writing = props => {
-
+export default function Writing() {
   // Retrieve app state and reducer functions
   const { timer, writing } = useAppState()
   const dispatch = useAppReducer()
 
   /** Resets text and starts timer on page load */
   useEffect(() => {
-    dispatch({ type: 'START_TIMER' })
-    dispatch({ type: 'RESET_TEXT' })
+    let writingInProgress = true
+    if (writingInProgress) {
+      dispatch({ type: 'START_TIMER' })
+    }
+    return () => {
+      writingInProgress = false
+    }
   }, [dispatch, timer.limit])
 
   /**
@@ -61,14 +61,18 @@ const Writing = props => {
 
   /* Render component */
   return (
-    <div id="Writing" style={{
-      display: 'flex',
-      'flexDirection': 'column'
-    }}>
+    <div id="Writing">
       <Navbar>
         <Link to="/">
           <FontAwesomeIcon icon={faArrowLeft} />
         </Link>
+        <Link to="/results" className="">
+          <Button icon={<FontAwesomeIcon icon={faCheck} />} collapse="sm">
+            <span className="button__text--sm">Finish</span>
+          </Button>
+        </Link>
+      </Navbar>
+      <div className="writing__settings">
         <DynamicLabel
           name="Word count"
           type="counter"
@@ -91,12 +95,8 @@ const Writing = props => {
         >
           <span className="button__text--sm">{ timer.isRunning ? 'Pause' : 'Resume' }</span>
         </Button>
-        <Link to="/results" className="">
-          <Button icon={<FontAwesomeIcon icon={faCheck} />} collapse="sm">
-            <span className="button__text--sm">Finish</span>
-          </Button>
-        </Link>
-      </Navbar>
+      </div>
+      
       <h2>{writing.title ? writing.title : 'New piece' }</h2>
       <Editor
         value={writing.editorState}
@@ -106,5 +106,3 @@ const Writing = props => {
     </div>
   )
 }
-
-export default Writing

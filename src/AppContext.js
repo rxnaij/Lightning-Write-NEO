@@ -1,33 +1,24 @@
-/* Create versions of state that can be 
-    transferred across all screens in the app.
-*/
+// @ts-check
 import React, { createContext, useContext, useReducer } from "react"
-import wordcount from 'wordcount'
 import { EditorState } from 'draft-js'
 
 /**
  * Context.
  * This actually is an array of two things:
- * 1. the state
- * 2. reducer functions for that state
+ * 0. a read-only state object
+ * 1. reducer functions to write to state
  */
+// @ts-expect-error
 export const AppContext = createContext()
 AppContext.displayName = 'AppContext'
 
-/** States
-    *  These states determine different aspects of the writing process.
-    *
-    *  @prop timeLimit:        (number) the total amount of time, in ms, allocated to the writing phase
-    *  @prop timeElapsed:    (object) the amount of time currently remaining on the timer
-    *  @prop wordLimit:        (number) how many words the user is aiming toward
-    *  @prop text:             (string) the text that the user has currently written @todo replace this when rich text is implemented
-    *  @prop editorState        (EditorState) the current EditorState object representing the rich text data
-    * @prop title:            (string, optional) the title of the piece of writing
-*/
+/**
+ * Provides read-only app state values.
+ */
 export function useAppState() {
     return useContext(AppContext)[0];
 }
-  
+
 /**
  * Provides write-only app state values.
  */
@@ -35,13 +26,48 @@ export function useAppReducer() {
     return useContext(AppContext)[1];
 }
 
+/** 
+ * These states determine different aspects of the writing process.
+ * @typedef {Object} AppState
+ * @prop {Object} timer
+ * @prop {boolean} timer.isRunning   whether the timer is currently active
+ * @prop {number} timer.limit        the total amount of time, in ms, allocated to the writing phase
+ * @prop {number} timer.elapsed    the amount of time currently remaining on the timer
+ * @prop {Object} writing
+ * @prop {string} writing.title            the title of the piece of writing
+ * @prop {string} writing.text             the text that the user has currently written 
+ * @prop {number}  writing.goal the number of words the user aims to write
+ * @prop {EditorState} writing.editorState        the current EditorState object representing the rich text data
+*/
+
 /**
- * Reducer dispatch function – called to initiate a particular change in state.
- * @param {Object} state the app's current state
- * @param {Object} action an object containing the "type" prop, specifying the name of the dispatch function to call, and "payload", which includes any necessary parameters for the function
+ * The initial state of the app
+ * @type AppState
+ */
+const initialState = {
+    timer: {
+        isRunning: false,
+        limit: 0,
+        elapsed: 0,
+    },
+    writing: {
+        title: '',
+        text: "",
+        goal: 0,
+        editorState: EditorState.createEmpty()
+    }
+}
+
+/**
+ * Reducer function: call this to write new value(s) to state.
+ * @param {AppState} state the app's current state
+ * @param {Object}  action argument sent with the call to the reducer function
+ * @param {string}  action.type the name of the dispatch function to call
+ * @param {Object}  action.payload an object containing data to send with the dispatch call
+ * @param {any}     action.payload.value the argument(s) to pass with the dispatch call
  */
 const appStateReducer = (state, action) => {
-    switch(action.type) {
+    switch (action.type) {
         // Starts the timer
         case 'START_TIMER': {
             return {
@@ -134,7 +160,9 @@ const appStateReducer = (state, action) => {
                 writing: {
                     ...state.writing,
                     text: '',
-                    wordCount: 0
+                    wordCount: 0,
+                    editorState: EditorState.createEmpty(),
+                    title: ''
                 }
             }
         }
@@ -147,6 +175,9 @@ const appStateReducer = (state, action) => {
                 }
             }
         }
+        case 'RESET_ALL':
+            return initialState
+            
         // If no action type/an unknown action type is provided, do nothing
         default:
             return state
@@ -155,35 +186,19 @@ const appStateReducer = (state, action) => {
 
 /**
  * This is the parent function that provides the state to the app.
- * @param {*} param0 
+ * @param {Object} props 
+ * @param {React.ReactNode} props.children
  */
-export function AppStateProvider({children}) {
-
-    // The initial state of the app
-    const initialState = {
-        timer: {
-            isRunning: false,
-            limit: 0,
-            elapsed: 0,
-        },
-        writing: {
-            title: '',
-            text: "",
-            goal: 0,
-            editorState: EditorState.createEmpty()
-        }
-    }
+export function AppStateProvider({ children }) {
 
     // The reducer hook which manages the state object and the dispatch function 
     // whose function is based on the state
     const value = useReducer(appStateReducer, initialState)
 
-
-
     // Return a provider "container" for the context.
     // AppContext.Provider signals that the children components can access the
     // reducer state declared in AppContext.
-    return(
+    return (
         <div className="App">
             <AppContext.Provider value={value}>
                 {children}

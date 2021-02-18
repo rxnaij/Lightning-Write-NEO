@@ -1,0 +1,15 @@
+.text-input__label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.text-input__input {
+    border-radius: 12px;
+    padding: 0.5rem 0.25rem;
+    background-color: hsla(0, 100%, 100%, 0.10);
+    color: white;
+
+    &:hover {
+        background-color: hsla(0, 100%, 100%, 0.20);
+    }
+}

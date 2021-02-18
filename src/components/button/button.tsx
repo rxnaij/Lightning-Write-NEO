@@ -3,7 +3,7 @@ import classNames from 'classnames'
 
 import './button.scss'
 
-export interface AppProps {
+export interface ButtonProps {
     children: React.ReactNode,
     
     // Possible button states
@@ -24,7 +24,7 @@ export interface AppProps {
     collapse?: 'sm'
 }
 
-const Button: React.FC<AppProps> = ({children, state, variant, onClick, enableConditions, icon, collapse}: AppProps) => {
+const Button = ({children, state, variant, onClick, enableConditions, icon, collapse}: ButtonProps) => {
 
     return(
         <button
